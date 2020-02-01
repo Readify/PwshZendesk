@@ -110,7 +110,7 @@ function Invoke-Method {
         # PS Desktop requires manual header creation. Basic auth is only supported by challenge.
         $raw = '{0}/token:{1}' -f $Context.Credential.username, $Context.Credential.GetNetworkCredential().password
         $bytes = [System.Text.Encoding]::Unicode.GetBytes($raw)
-        $encoded =[Convert]::ToBase64String($bytes)
+        $encoded = [Convert]::ToBase64String($bytes)
 
         $params.Headers.Authentication = "basic: $encoded"
     }
@@ -181,7 +181,7 @@ function Invoke-Method {
         if ((Test-Path -Path Variable:\errorRecord) -and $null -ne $errorRecord) {
             # Get just the message without stack trace, category info, or qualified error
             $errorMessage = $errorRecord.ToString()
-            Get-PSCallStack | Foreach-Object { $errorMessage += "`n" + $_.Command + ': line ' + $_.ScriptLineNumber }
+            Get-PSCallStack | ForEach-Object { $errorMessage += "`n" + $_.Command + ': line ' + $_.ScriptLineNumber }
             throw $errorMessage
         }
 
