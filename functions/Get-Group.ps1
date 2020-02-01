@@ -73,6 +73,8 @@ function Get-Group {
     }
 
     $result = Invoke-Method @params
-    $result | Select-Object -Expand $key
 
+    if (-not $PSBoundParameters.ContainsKey('SideLoad')) {
+        $result | Select-Object -Expand $key
+    }
 }
