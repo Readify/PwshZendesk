@@ -2,7 +2,7 @@
 function Merge-User {
 
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true)]
+    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique Id of the user to merge

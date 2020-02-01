@@ -2,7 +2,7 @@
 function Remove-OrganizationMembership {
 
     [OutputType([PSCustomObject])]
-    [CmdletBinding(SupportsShouldProcess = $true)]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique Id of the organization membership to remove

@@ -2,7 +2,7 @@
 function Remove-Group {
 
     [OutputType([PSCustomObject])]
-    [CmdletBinding(SupportsShouldProcess = $true)]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique Id of group to delete

@@ -18,7 +18,7 @@ function Get-SuspendedTicket {
         $Context = $null
     )
 
-    if ($PSBoundParameter.containsKey('UserId')) {
+    if ($PSBoundParameters.containsKey('UserId')) {
         $path = "/api/v2/suspended_tickets/{id}.json"
         $key = 'ticket'
     } else {

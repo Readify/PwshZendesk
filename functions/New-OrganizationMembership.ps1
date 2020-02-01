@@ -2,7 +2,7 @@
 function New-OrganizationMembership {
 
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true)]
+    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # The ID of the user for whom this memberships belongs
