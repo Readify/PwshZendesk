@@ -2,7 +2,7 @@
 function Update-Ticket {
 
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+    [CMDletBinding(DefaultParameterSetName = 'Property', SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Tickets to update

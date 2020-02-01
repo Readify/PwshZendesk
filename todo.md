@@ -1,6 +1,5 @@
 
 - Comment Based Help
-- Default Parameter Sets
 - Tests
 - OAuth Support
 - Parameter Validation
