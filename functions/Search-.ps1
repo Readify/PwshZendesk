@@ -8,7 +8,7 @@ function Search- {
     .EXAMPLE
     Search-Zendesk -Query 'type:user user@company.com'
     #>
-    [OutputType([String])]
+    [OutputType([PSCustomObject])]
     [CmdletBinding()]
     Param (
         # Zendesk Search Query

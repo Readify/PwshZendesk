@@ -10,7 +10,7 @@ function Test-Connection {
         Search-Zendesk @searchParams
     }
     #>
-    [OutputType([Bool])]
+    [OutputType([Boolean])]
     [CmdletBinding()]
     Param(
         # Zendesk Connection Context from `Get-ZendeskConnection`
