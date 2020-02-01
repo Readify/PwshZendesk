@@ -56,7 +56,9 @@ function Merge-Ticket {
         source_comment = $SourceTicketComment
     }
 
-    $result = Invoke-Method -Context $Context -Method 'Post' -Path $path -Body $body -Verbose:$VerbosePreference
-    $result
+    if ($PSCmdlet.ShouldProcess("$SourceTicketId => $TargetTicketId", 'Merge tickets.')) {
+        $result = Invoke-Method -Context $Context -Method 'Post' -Path $path -Body $body -Verbose:$VerbosePreference
+        $result
+    }
 
 }
