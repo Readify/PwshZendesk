@@ -2,7 +2,7 @@
 function Update-Group {
 
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true)]
+    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique Id of the group to update

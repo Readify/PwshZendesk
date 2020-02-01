@@ -2,7 +2,7 @@
 function Remove-Ticket {
 
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true)]
+    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique Id of the ticket to delete

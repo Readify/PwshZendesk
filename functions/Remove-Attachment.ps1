@@ -2,7 +2,7 @@
 function Remove-Attachment {
 
     [OutputType([PSCustomObject])]
-    [CmdletBinding(SupportsShouldProcess = $true)]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique token of the attachment to delete
