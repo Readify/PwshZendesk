@@ -1,3 +1,5 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
+Param()
 
 Import-Module "$PSScriptRoot/../PwshZendesk.psm1" -Force
 
@@ -27,16 +29,16 @@ Describe 'Invoke-Method' {
         }
         $context | Add-Member -TypeName 'ZendeskContext'
 
-        Mock -ModuleName PwshZendesk Invoke-RestMethod {}
+        Mock -ModuleName PwshZendesk Invoke-RestMethod { }
 
         It 'Uses the baseUrl' {
             Invoke-Method -Context $context -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Uri -match 'https://company.testdesk.com'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -match 'https://company.testdesk.com' } -Scope It
         }
 
         It 'Uses the path' {
             Invoke-Method -Context $context -Path '/Thing'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Uri -match '/Thing'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -match '/Thing' } -Scope It
         }
 
         It 'Accepts JSON' {
@@ -59,27 +61,27 @@ Describe 'Invoke-Method' {
 
         It 'Default Method: Get' {
             Invoke-Method -Context $context -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Method -eq 'Get'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Get' } -Scope It
         }
 
         It 'Explicit Method: Get' {
             Invoke-Method -Context $context -Method 'Get' -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Method -eq 'Get'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Get' } -Scope It
         }
 
         It 'Explicit Method: Post' {
             Invoke-Method -Context $context -Method 'Post' -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Method -eq 'Post'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Post' } -Scope It
         }
 
         It 'Explicit Method: Put' {
             Invoke-Method -Context $context -Method 'Put' -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Method -eq 'Put'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Put' } -Scope It
         }
 
         It 'Explicit Method: Delete' {
             Invoke-Method -Context $context -Method 'Delete' -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Method -eq 'Delete'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Delete' } -Scope It
         }
 
         It 'Throws with no connection' {
@@ -87,43 +89,45 @@ Describe 'Invoke-Method' {
         }
 
         It 'Throws with no invalid connection type' {
-            { Invoke-Method -Path '/' -Context [PSCustomObject]@{
-                Organization = 'company'
-                BaseUrl = 'https://company.testdesk.com'
-                Credential = $null
-            } } | Should -Throw
+            {
+                Invoke-Method -Path '/' -Context [PSCustomObject]@{
+                    Organization = 'company'
+                    BaseUrl = 'https://company.testdesk.com'
+                    Credential = $null
+                }
+            } | Should -Throw
         }
 
         It 'Converts Body to JSON by default' {
-            Invoke-Method -Context $context -Method 'Post' -Path '/' -Body ([PSCustomObject]@{A=1; B=2; C=3})
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Body -eq '{"A":1,"B":2,"C":3}'} -Scope It
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$ContentType -eq 'application/json'} -Scope It
+            Invoke-Method -Context $context -Method 'Post' -Path '/' -Body ([PSCustomObject]@{ A = 1; B = 2; C = 3 })
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Body -eq '{"A":1,"B":2,"C":3}' } -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $ContentType -eq 'application/json' } -Scope It
         }
 
         It 'Leaves Body alone with explicit ContentType' {
             Invoke-Method -Context $context -Method 'Post' -Path '/' -Body 'The Body' -ContentType 'text/plain'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Body -eq 'The Body'} -Scope It
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$ContentType -eq 'text/plain'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Body -eq 'The Body' } -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $ContentType -eq 'text/plain' } -Scope It
         }
 
         It 'Sorts by created_at by default' {
             Invoke-Method -Context $context -Path '/'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Uri -match 'sort_by=created_at'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -match 'sort_by=created_at' } -Scope It
         }
 
         It 'Sorts by any supplied property' {
             Invoke-Method -Context $context -Path '/' -SortBy 'name'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Uri -match 'sort_by=name'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -match 'sort_by=name' } -Scope It
         }
 
         It 'Doesn;t sort when SortBy is set to $null' {
             Invoke-Method -Context $context -Path '/' -SortBy $null
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Uri -notmatch 'sort_by'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -notmatch 'sort_by' } -Scope It
         }
 
         It 'Can sort if path includes query variables' {
             Invoke-Method -Context $context -Path '/thing?name=jim'
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter {$Uri -match '\?name=jim&sort_by'} -Scope It
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -match '\?name=jim&sort_by' } -Scope It
         }
 
         Mock -ModuleName PwshZendesk Invoke-RestMethod { & $IRM 'httpstat.us/404' }
@@ -133,26 +137,26 @@ Describe 'Invoke-Method' {
         }
 
         It 'Passes on 404 error message' {
-            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_}
+            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
             $E | Should -Match '404 \(Not Found\)'
         }
 
         Mock -ModuleName PwshZendesk Invoke-RestMethod { & $IRM 'httpstat.us/400' }
 
         It 'Passes on 400 error message' {
-            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_}
+            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
             $E | Should -Match '400 \(Bad Request\)'
         }
 
         Mock -ModuleName PwshZendesk Invoke-RestMethod { & $IRM 'httpstat.us/500' }
 
         It 'Passes on 500 error message' {
-            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_}
+            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
             $E | Should -Match '500 \(Internal Server Error\)'
         }
 
         It 'Passes on Calling function' {
-            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_}
+            try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
             $E | Should -Match '<ScriptBlock>: line 1\d\d'
         }
 
@@ -215,7 +219,7 @@ Describe 'Invoke-Method' {
             Assert-MockCalled Invoke-RestMethod -Exactly 3 -Scope It
         }
 
-        Mock -ModuleName PwshZendesk Invoke-RestMethod {}
+        Mock -ModuleName PwshZendesk Invoke-RestMethod { }
         $Script:Context = $context
 
         It 'Uses the stored context' {
