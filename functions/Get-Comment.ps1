@@ -1,7 +1,7 @@
 ﻿
 function Get-Comment {
 
-    [OutputType([String])]
+    [OutputType([PSCustomObject])]
     [CmdletBinding()]
     Param (
 

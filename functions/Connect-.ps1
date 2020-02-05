@@ -1,6 +1,6 @@
 ﻿
 function Connect- {
-    [OutputType([String])]
+    [OutputType([Boolean])]
     [CmdletBinding()]
     Param (
 
