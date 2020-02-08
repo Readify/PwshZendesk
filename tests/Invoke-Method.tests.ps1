@@ -10,19 +10,6 @@ Describe 'Invoke-Method' {
         $IRM = Get-Command -Name 'Invoke-RestMethod' -Module 'Microsoft.PowerShell.Utility'
 
         $context = @{
-            Organization = 'httpbin'
-            BaseUrl      = 'https://httpbin.org'
-            Credential   = [System.Management.Automation.PSCredential]::New("email", ('api-key' | ConvertTo-SecureString -AsPlainText -Force))
-        }
-        $context | Add-Member -TypeName 'ZendeskContext'
-
-        # Needs to run before Invoke-RestMethod is mocked.
-        It 'Passes the creds using Basic Auth' {
-            { Invoke-Method -Context $context -Path '/basic-auth/email/api-key' } | Should -Not -Throw
-            { Invoke-Method -Context $context -Path '/basic-auth/different/creds' } | Should -Throw
-        }
-
-        $context = @{
             Organization = 'company'
             BaseUrl      = 'https://company.testdesk.com'
             Credential   = [System.Management.Automation.PSCredential]::New("email", ('api-key' | ConvertTo-SecureString -AsPlainText -Force))
@@ -138,21 +125,21 @@ Describe 'Invoke-Method' {
 
         It 'Passes on 404 error message' {
             try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
-            $E | Should -Match '404 \(Not Found\)'
+            $E | Should -Match '\(?404\)? \(?Not Found\)?'
         }
 
         Mock -ModuleName PwshZendesk Invoke-RestMethod { & $IRM 'httpstat.us/400' }
 
         It 'Passes on 400 error message' {
             try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
-            $E | Should -Match '400 \(Bad Request\)'
+            $E | Should -Match '\(?400\)? \(?Bad Request\)?'
         }
 
         Mock -ModuleName PwshZendesk Invoke-RestMethod { & $IRM 'httpstat.us/500' }
 
         It 'Passes on 500 error message' {
             try { Invoke-Method -Context $context -Path '/' } catch { $E = $_ }
-            $E | Should -Match '500 \(Internal Server Error\)'
+            $E | Should -Match '\(?500\)? \(?Internal Server Error\)?'
         }
 
         It 'Passes on Calling function' {

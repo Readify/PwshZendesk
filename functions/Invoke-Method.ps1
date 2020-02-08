@@ -156,10 +156,14 @@ function Invoke-Method {
         # 429 Too Many Requests - Exponential rety with jitter.
         $multiplier = 1
         while ($Retry -and (Test-Path -Path Variable:/errorRecord) -and $null -ne $errorRecord -and
-            $errorRecord.Exception -is [Microsoft.PowerShell.Commands.HttpResponseException] -and
+            $errorRecord.Exception.GetType().Name -in @('HttpResponseException', 'WebException') -and
             $errorRecord.Exception.Response.StatusCode.value__ -eq 429) {
 
-            $retryAfter = $errorRecord.Exception.Response.Headers.RetryAfter.Delta.TotalSeconds
+            if ($PSVersionTable.PSEdition -eq 'Core') {
+                $retryAfter = $errorRecord.Exception.Response.Headers.RetryAfter.Delta.TotalSeconds
+            } else {
+                $retryAfter = $errorRecord.Exception.Response.Headers['Retry-After']
+            }
             $retryAfter = 1
 
             $multiplier *= 2
