@@ -122,6 +122,8 @@ function Invoke-Method {
             $params.Body = $Body
         }
         $params.ContentType = $ContentType
+
+        $params.Body | Out-String | Write-Debug
     }
 
     $uri = $Context.BaseUrl + $Path
