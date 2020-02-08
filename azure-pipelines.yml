@@ -1,0 +1,162 @@
+
+trigger:
+- master
+
+stages:
+
+- stage: Build
+  jobs:
+
+  - job: Build
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+    - checkout: self
+      clean: true
+    - script: brew install gitversion
+      displayName: Install Gitversion
+    - pwsh: |
+        $version = gitversion | ConvertFrom-Json | ForEach-Object MajorMinorPatch
+        Write-Host "##vso[build.updatebuildnumber]$version"
+      displayName: Set Build Number
+    - pwsh: |
+        $rawManifest = Get-Content -Path "PwshZendesk.psd1" -raw
+        $updatedManifest = $rawManifest -replace "ModuleVersion\s*=\s*['`"][0-9.]+['`"]", "ModuleVersion = '$(Build.BuildNumber)'"
+        $updatedManifest | Out-File -Path "PwshZendesk.psd1" -NoNewline
+      displayName: Update Module Manifest Version Number
+    - task: CopyFiles@2
+      inputs:
+        contents: |
+          **/*
+          !**/.*/**/*
+          !**/.*
+          !azure-pipelines.yml
+          !gitversion.yml
+        targetFolder: $(Build.ArtifactStagingDirectory)/PwshZendesk
+    - publish: '$(Build.ArtifactStagingDirectory)/PwshZendesk'
+      artifact: 'files'
+      displayName: 'Publish Artifact files'
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: $(Build.ArtifactStagingDirectory)/PwshZendesk
+        archiveFile: '$(Build.ArtifactStagingDirectory)/PwshZendesk_$(Build.BuildNumber).zip'
+      displayName: 'Archive zip'
+    - publish: '$(Build.ArtifactStagingDirectory)/PwshZendesk_$(Build.BuildNumber).zip'
+      artifact: 'zip'
+      displayName: 'Publish Artifact zip'
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: $(Build.ArtifactStagingDirectory)/PwshZendesk
+        archiveType: tar
+        archiveFile: '$(Build.ArtifactStagingDirectory)/PwshZendesk_$(Build.BuildNumber).tar.gz'
+      displayName: 'Archive tar'
+    - publish: '$(Build.ArtifactStagingDirectory)/PwshZendesk_$(Build.BuildNumber).tar.gz'
+      artifact: 'tar'
+      displayName: 'Publish Artifact tar'
+
+- stage: Test
+  jobs:
+
+  - job: Mac_10_14
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+    - checkout: none
+    - download: current
+      artifact: files
+    - pwsh: $PSVersionTable | Out-String
+      displayName: PSVersionTable
+    - pwsh: |
+        Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
+        Import-Module -Name './PSScriptAnalyzer/'
+        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+      displayName: Script Analyzer
+    - pwsh: |
+        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Import-Module -Name './Pester/'
+        Set-Location -Path '$(Pipeline.Workspace)'
+        Invoke-Pester -EnableExit
+      displayName: Pester
+
+  - job: Ubuntu_18_04
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - checkout: none
+    - download: current
+      artifact: files
+    - pwsh: $PSVersionTable | Out-String
+      displayName: PSVersionTable
+    - pwsh: |
+        Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
+        Import-Module -Name './PSScriptAnalyzer/'
+        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+      displayName: Script Analyzer
+    - pwsh: |
+        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Import-Module -Name './Pester/'
+        Set-Location -Path '$(Pipeline.Workspace)'
+        Invoke-Pester -EnableExit
+      displayName: Pester
+
+  - job: Windows_2019_Pwsh
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - checkout: none
+    - download: current
+      artifact: files
+    - pwsh: $PSVersionTable | Out-String
+      displayName: PSVersionTable
+    - pwsh: |
+        Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
+        Import-Module -Name './PSScriptAnalyzer/'
+        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+      displayName: Script Analyzer
+    - pwsh: |
+        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Import-Module -Name './Pester/'
+        Set-Location -Path '$(Pipeline.Workspace)'
+        Invoke-Pester -EnableExit
+      displayName: Pester
+
+  - job: Windows_2016_Powershell
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+    - checkout: none
+    - download: current
+      artifact: files
+    - powershell: $PSVersionTable | Out-String
+      displayName: PSVersionTable
+    - powershell: |
+        Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
+        Resolve-Path -Path './PSScriptAnalyzer/*/PSScriptAnalyzer.psd1' | Import-Module
+        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+      displayName: Script Analyzer
+    - powershell: |
+        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Resolve-Path -Path './Pester/*/Pester.psd1' | Import-Module
+        Set-Location -Path '$(Pipeline.Workspace)'
+        Invoke-Pester -EnableExit
+      displayName: Pester
+
+- stage: Deploy
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  jobs:
+
+  - job: Commit_Updated_Manifest
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+    - checkout: self
+      clean: true
+      persistCredentials: true
+    - download: current
+      artifact: files
+    - pwsh: |
+        Move-Item -Path '$(Pipeline.Workspace)/files/PwshZendesk.psd1' -Destination 'PwshZendesk.psd1' -Confirm:$false -Force
+        git add PwshZendesk.psd1
+        git -c "user.name=$(Build.RequestedFor)" -c "user.email=$(Build.RequestedForEmail)" commit -m "Updated module version: $(Build.BuildNumber) [skip ci]"
+        git push origin HEAD:master
+      workingDirectory: '$(Build.SourcesDirectory)'
