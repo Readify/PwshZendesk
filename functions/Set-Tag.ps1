@@ -38,6 +38,8 @@ function Set-Tag {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     switch ($PSCMDlet.ParameterSetName) {
         'Ticket' {
             $path = "/api/v2/tickets/$TicketId/tags.json"

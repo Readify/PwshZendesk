@@ -26,12 +26,21 @@ function Get-Tag {
         [Int64]
         $UserId,
 
+        # Partial Name for auto complete results
+        [Parameter(Mandatory = $true,
+            ParameterSetName = 'AutoComplete')]
+        [ValidateNotNullOrEmpty()]
+        [String]
+        $PartialName,
+
         # Zendesk Connection Context from `Get-ZendeskConnection`
         [Parameter(Mandatory = $false)]
         [PSTypeName('ZendeskContext')]
         [PSCustomObject]
         $Context = $null
     )
+
+    Assert-IsAgent -Context $Context
 
     switch ($PSCMDlet.ParameterSetName) {
         'Ticket' {
@@ -46,7 +55,12 @@ function Get-Tag {
             $path = "/api/v2/users/$UserId/tags.json"
         }
 
+        'AutoComplete' {
+            $path = "/api/v2/autocomplete/tags.json?name=$PartialName"
+        }
+
         default {
+            Assert-IsAdmin -Context $Context
             $path = '/api/v2/tags.json'
         }
     }
