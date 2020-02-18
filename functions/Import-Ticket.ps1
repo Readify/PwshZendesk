@@ -18,6 +18,8 @@ function Import-Ticket {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     if ($Ticket.count -gt 1) {
         $path = '/api/v2/imports/tickets/create_many.json'
         $body = @{
