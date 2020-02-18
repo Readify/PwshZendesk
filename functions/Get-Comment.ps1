@@ -18,6 +18,8 @@ function Get-Comment {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $path = "/api/v2/tickets/$TicketId/comments.json"
 
     $result = Invoke-Method -Context $Context -Path $path -Verbose:$VerbosePreference

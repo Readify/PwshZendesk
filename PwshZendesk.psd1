@@ -104,6 +104,7 @@
         'Get-UserRelated',                     'Get-ZendeskUserRelated'
         'Hide-Comment',                        'Hide-ZendeskComment'
         'Import-Ticket',                       'Import-ZendeskTicket'
+        'Invoke-CommentRedaction',             'Invoke-ZendeskCommentRedaction'
         'Invoke-Method',                       'Invoke-ZendeskMethod'
         'Merge-Ticket',                        'Merge-ZendeskTicket'
         'Merge-User',                          'Merge-ZendeskUser'

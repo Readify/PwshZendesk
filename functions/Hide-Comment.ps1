@@ -2,7 +2,7 @@
 function Hide-Comment {
 
     [OutputType([String])]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
 
         # Unique Id of the comment to hide
@@ -24,8 +24,12 @@ function Hide-Comment {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $path = "/api/v2/tickets/$TicketId/comments/$Id/make_private.json"
 
-    $result = Invoke-Method -Context $Context -Method 'Put' -Path $path -Verbose:$VerbosePreference
-    $result
+    if ($PSCmdlet.ShouldProcess($Id, 'Make comment private')) {
+        $result = Invoke-Method -Context $Context -Method 'Put' -Path $path -Verbose:$VerbosePreference
+        $result
+    }
 }
