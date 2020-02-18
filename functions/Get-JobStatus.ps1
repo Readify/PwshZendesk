@@ -18,6 +18,8 @@ function Get-JobStatus {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $key = 'job_statuses'
 
     if ($PSBoundParameters.ContainsKey('Id')) {
