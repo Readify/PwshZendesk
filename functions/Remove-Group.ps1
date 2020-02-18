@@ -18,6 +18,8 @@ function Remove-Group {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     $path = "/api/v2/groups/$Id.json"
 
     if ($PSCmdlet.ShouldProcess($Id, "Delete Group")) {
