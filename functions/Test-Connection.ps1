@@ -2,13 +2,15 @@
 function Test-Connection {
     <#
     .Synopsis
-    Checks that api credentials have been stored.
+        Tests the validity of a supplied or stored Zendesk connection.
     .DESCRIPTION
-    Checks that api credentials have been stored.
+        Tests the validity of a supplied or stored Zendesk connection. Updating the stored information on the current user.
     .EXAMPLE
-    if (Test-ZendeskConnection) {
-        Search-Zendesk @searchParams
-    }
+        if (Test-ZendeskConnection -Context $Context) {
+            Search-Zendesk @searchParams
+        }
+
+        Tests the connection to Zendesk before making a call to `Search-Zendesk`
     #>
     [OutputType([Boolean])]
     [CmdletBinding()]
@@ -20,7 +22,7 @@ function Test-Connection {
         $Context = $null
     )
 
-    $null = Get-AuthenticatedUser -Context $Context
+    $Context.User = Get-AuthenticatedUser -Context $Context
     $true
 
 }

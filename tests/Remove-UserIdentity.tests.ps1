@@ -14,6 +14,7 @@ Describe 'Remove-UserIdentity' {
             Organization = 'company'
             BaseUrl      = 'https://company.testdesk.com'
             Credential   = [System.Management.Automation.PSCredential]::New("email", ('api-key' | ConvertTo-SecureString -AsPlainText -Force))
+            User         = [PSCustomObject]@{ role = 'admin' }
         }
         $context | Add-Member -TypeName 'ZendeskContext'
 
