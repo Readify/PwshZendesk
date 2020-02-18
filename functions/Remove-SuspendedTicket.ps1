@@ -1,5 +1,5 @@
 
-function Get-SuspendedTicket {
+function Remove-SuspendedTicket {
 
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
@@ -17,6 +17,8 @@ function Get-SuspendedTicket {
         [PSCustomObject]
         $Context = $null
     )
+
+    Assert-IsAgent -Context $Context
 
     if ($Id.Count -gt 1) {
         $ids = $Id -join ','

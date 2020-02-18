@@ -18,12 +18,14 @@ function Get-SuspendedTicket {
         $Context = $null
     )
 
-    if ($PSBoundParameters.containsKey('UserId')) {
-        $path = "/api/v2/suspended_tickets/{id}.json"
-        $key = 'ticket'
+    Assert-IsAgent -Context $Context
+
+    if ($PSBoundParameters.containsKey('Id')) {
+        $path = "/api/v2/suspended_tickets/$Id.json"
+        $key = 'suspended_ticket'
     } else {
         $path = '/api/v2/suspended_tickets.json'
-        $key = 'tickets'
+        $key = 'suspended_tickets'
     }
 
     $result = Invoke-Method -Context $Context -Path $path -Verbose:$VerbosePreference
