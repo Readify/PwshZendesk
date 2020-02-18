@@ -181,6 +181,8 @@ function Set-User {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     if ($PSCmdlet.ParameterSetName -eq 'Properties') {
 
         $path = '/api/v2/users/create_or_update.json'
@@ -216,7 +218,7 @@ function Set-User {
             verified              = 'Verified'
         }
 
-        foreach ($item in $map) {
+        foreach ($item in $map.GetEnumerator()) {
             $property = $item.key
             $parameter = $item.value
             if ($PSBoundParameters.ContainsKey($parameter)) {

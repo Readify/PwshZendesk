@@ -18,6 +18,8 @@ function Get-UserRelated {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $result = Invoke-Method -Path "/api/v2/users/$UserId/related.json" -Context $Context -Verbose:$VerbosePreference
     $result
 

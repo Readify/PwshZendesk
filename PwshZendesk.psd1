@@ -73,6 +73,7 @@
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @(
         'Add-Tag',                             'Add-ZendeskTag'
+        'Add-User',                            'Add-ZendeskUser'
         'Connect-',                            'Connect-Zendesk'
         'Export-Organization',                 'Export-ZendeskOrganization'
         'Export-Sample',                       'Export-ZendeskSample'
@@ -81,6 +82,7 @@
         'Export-User',                         'Export-ZendeskUser'
         'Get-Attachment',                      'Get-ZendeskAttachment'
         'Get-AuthenticatedUser',               'Get-ZendeskAuthenticatedUser'
+        'Get-AutocompleteUser',                'Get-ZendeskAutocompleteUser'
         'Get-Comment',                         'Get-ZendeskComment'
         'Get-Connection',                      'Get-ZendeskConnection'
         'Get-DeletedTicket',                   'Get-ZendeskDeletedTicket'
@@ -100,6 +102,7 @@
         'Get-TicketFollower',                  'Get-ZendeskTicketFollower'
         'Get-TicketRelated',                   'Get-ZendeskTicketRelated'
         'Get-User',                            'Get-ZendeskUser'
+        'Get-UserGDPRStatus',                  'Get-ZendeskUserGDPRStatus'
         'Get-UserIdentity',                    'Get-ZendeskUserIdentity'
         'Get-UserRelated',                     'Get-ZendeskUserRelated'
         'Hide-Comment',                        'Hide-ZendeskComment'
@@ -122,10 +125,12 @@
         'Remove-Ticket',                       'Remove-ZendeskTicket'
         'Remove-User',                         'Remove-ZendeskUser'
         'Remove-UserIdentity',                 'Remove-ZendeskUserIdentity'
+        'Request-UserLicense',                 'Request-ZendeskUserLicense'
         'Restore-DeletedTicket',               'Restore-ZendeskDeletedTicket'
         'Restore-SuspendedTicket',             'Restore-ZendeskSuspendedTicket'
         'Search-',                             'Search-Zendesk'
-        'Send-UserIdentityVerification',       'Send-UserIdentityVerification'
+        'Search-User',                         'Search-ZendeskUser'
+        'Send-UserIdentityVerification',       'Send-ZendeskUserIdentityVerification'
         'Set-GroupMembershipAsDefault',        'Set-ZendeskGroupMembershipAsDefault'
         'Set-OrganizationMembershipAsDefault', 'Set-ZendeskOrganizationMembershipAsDefault'
         'Set-Tag',                             'Set-ZendeskTag'
@@ -135,6 +140,7 @@
         'Test-Connection',                     'Test-ZendeskConnection'
         'Update-Group',                        'Update-ZendeskGroup'
         'Update-Ticket',                       'Update-ZendeskTicket'
+        'Update-User',                         'Update-ZendeskUser'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

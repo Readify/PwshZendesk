@@ -77,6 +77,8 @@ function Get-User {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $key = 'users'
 
     switch ($PSCmdlet.ParameterSetName) {
