@@ -23,6 +23,8 @@ function Export-Sample {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     $path = "/api/v2/incremental/$EntityName/sample.json?start_time=$Timestamp"
 
     $result = Invoke-Method -Context $Context -Path $path -Pagination $false -Verbose:$VerbosePreference
