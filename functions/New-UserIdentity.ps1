@@ -80,7 +80,12 @@ function New-UserIdentity {
         $Context = $null
     )
 
-    $path = "/api/v2/users/$UserId/identities.json"
+    if (Test-IsEndUser -Context $Context) {
+        $path = "/api/v2/end_users/$UserId/identities.json"
+    } else {
+        $path = "/api/v2/users/$UserId/identities.json"
+    }
+
     $body = @{
         identity = @{
             user_id  = $UserId

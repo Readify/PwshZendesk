@@ -25,15 +25,15 @@ Describe 'Remove-UserIdentity' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Remove-UserIdentity -UserId 1 } | Should -Throw
+            { Remove-UserIdentity -Context $context -UserId 1 } | Should -Throw
         }
 
         It 'Requires Id to be positive' {
-            { Remove-UserIdentity -UserId 1 -Id -1 } | Should -Throw
+            { Remove-UserIdentity -Context $context -UserId 1 -Id -1 } | Should -Throw
         }
 
         It 'Requires Id to be Int64' {
-            { Remove-UserIdentity -UserId 1 -Id 'a' } | Should -Throw
+            { Remove-UserIdentity -Context $context -UserId 1 -Id 'a' } | Should -Throw
         }
 
         It 'Requires a UserId to be supplied' {
@@ -41,29 +41,29 @@ Describe 'Remove-UserIdentity' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Remove-UserIdentity -Id 1 } | Should -Throw
+            { Remove-UserIdentity -Context $context -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be positive' {
-            { Remove-UserIdentity -UserId -1 -Id 1 } | Should -Throw
+            { Remove-UserIdentity -Context $context -UserId -1 -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be Int64' {
-            { Remove-UserIdentity -UserId 'a' -Id 1 } | Should -Throw
+            { Remove-UserIdentity -Context $context -UserId 'a' -Id 1 } | Should -Throw
         }
 
         It 'Hits the correct endpoint' {
-            Remove-UserIdentity -UserId 1 -Id 1 -Confirm:$false
+            Remove-UserIdentity -Context $context -UserId 1 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '/api/v2/users/\d+/identities/\d+.json' -and $Method -eq 'Delete' } -Scope It
         }
 
         It 'Passes on the UserId' {
-            Remove-UserIdentity -UserId 736088406 -Id 1 -Confirm:$false
+            Remove-UserIdentity -Context $context -UserId 736088406 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
         It 'Passes on the Id' {
-            Remove-UserIdentity -UserId 1 -Id 736088406 -Confirm:$false
+            Remove-UserIdentity -Context $context -UserId 1 -Id 736088406 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
@@ -73,7 +73,7 @@ Describe 'Remove-UserIdentity' {
         }
 
         It 'Does nothing in WhatIf' {
-            Remove-UserIdentity -UserId 1 -Id 1 -WhatIf
+            Remove-UserIdentity -Context $context -UserId 1 -Id 1 -WhatIf
             Assert-MockCalled Invoke-Method -Exactly 0 -Scope It
         }
     }

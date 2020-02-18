@@ -36,6 +36,8 @@ function Remove-UserIdentity {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $path = "/api/v2/users/$UserId/identities/$Id.json"
 
     if ($PSCmdlet.ShouldProcess($Id, 'Delete User Identity')) {
