@@ -26,6 +26,8 @@ function Set-GroupMembershipAsDefault {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $path = "/api/v2/users/$UserId/group_memberships/$MembershipId/make_default.json"
 
     if ($PSCmdlet.ShouldProcess($UserId, "Set default group: $MembershipId")) {

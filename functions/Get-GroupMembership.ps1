@@ -8,6 +8,8 @@ function Get-GroupMembership {
         # Unique Id of the group membership to retrieve
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Id')]
+        [Parameter(Mandatory = $false,
+            ParameterSetName = 'UserId')]
         [ValidateRange(1, [Int64]::MaxValue)]
         [Int64]
         $Id,
@@ -51,6 +53,8 @@ function Get-GroupMembership {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $key = 'group_memberships'
 
     switch ($PSCMDlet.ParameterSetName) {
@@ -60,7 +64,11 @@ function Get-GroupMembership {
         }
 
         'UserId' {
-            $path = "/api/v2/users/$UserId/group_memberships.json"
+            if ($PSBoundParameters.ContainsKey('Id')) {
+                $path = "/api/v2/users/$UserId/group_memberships/$Id.json"
+            } else {
+                $path = "/api/v2/users/$UserId/group_memberships.json"
+            }
         }
 
         'GroupId' {
