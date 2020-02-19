@@ -24,10 +24,12 @@ function Merge-User {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     $path = "/api/v2/users/$UserId/merge.json"
     $body = @{
         user = @{
-            id = $TargerUserId
+            id = $TargetUserId
         }
     }
 

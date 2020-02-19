@@ -18,6 +18,8 @@ function Get-DeletedUser {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     if ($PSBoundParameters.ContainsKey('UserId')) {
         $path = "/api/v2/deleted_users/$UserId.json"
         $key = 'deleted_user'
