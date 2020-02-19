@@ -1,7 +1,7 @@
 ﻿
 function Add-Tag {
     [OutputType([PSCustomObject])]
-    [CmdletBinding(DefaultParameterSetName = 'Default')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High', DefaultParameterSetName = 'Default')]
     Param (
 
         # Unique Id of ticket to add tags to
@@ -37,6 +37,8 @@ function Add-Tag {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     switch ($PSCMDlet.ParameterSetName) {
         'Ticket' {
             $path = "/api/v2/tickets/$TicketId/tags.json"
@@ -55,7 +57,10 @@ function Add-Tag {
         tags = $Tag
     }
 
-    $result = Invoke-Method -Context $Context -Method 'Put' -Path $path -Body $body -Verbose:$VerbosePreference
-    $result
+
+    if ($PSCmdlet.ShouldProcess("$TicketId$OrganizationId$UserId", "Set Tags: $Tag")) {
+        $result = Invoke-Method -Context $Context -Method 'Put' -Path $path -Body $body -Verbose:$VerbosePreference
+        $result
+    }
 
 }

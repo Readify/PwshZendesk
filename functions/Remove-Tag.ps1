@@ -38,6 +38,8 @@ function Remove-Tag {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     switch ($PSCMDlet.ParameterSetName) {
         'Ticket' {
             $path = "/api/v2/tickets/$TicketId/tags.json"
@@ -56,7 +58,7 @@ function Remove-Tag {
         tags = $Tag
     }
 
-    if ($PSCmdlet.ShouldProcess("$Tag", 'Remove Tag')) {
+    if ($PSCmdlet.ShouldProcess("$TicketId$OrganizationId$UserId", "Set Tags: $Tag")) {
         $result = Invoke-Method -Context $Context -Method 'Delete' -Path $path -Body $body -Verbose:$VerbosePreference
         $result
     }
