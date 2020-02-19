@@ -24,11 +24,13 @@ function Search- {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     Write-Debug -Message "Query: $Query"
     $Query = [uri]::EscapeDataString($Query)
     Write-Debug -Message "Escaped Query: $Query"
 
-    $results = Invoke-Method -Context $Context -Path "/api/v2/search.json?query=$Query"
+    $results = Invoke-Method -Context $Context -Path "/api/v2/search.json?query=$Query" -Verbose:$VerbosePreference
     $results.results
 
 }

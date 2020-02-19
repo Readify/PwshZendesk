@@ -17,6 +17,8 @@ function Get-SearchCount {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     Write-Debug -Message "Query: $Query"
     $Query = [uri]::EscapeDataString($Query)
     Write-Debug -Message "Escaped Query: $Query"
