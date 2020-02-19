@@ -41,6 +41,8 @@ function Get-Group {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $key = 'groups'
 
     switch ($PSCMDlet.ParameterSetName) {

@@ -18,6 +18,8 @@ function New-Group {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     $path = '/api/v2/groups.json'
     $body = @{
         group = @{
