@@ -1,6 +1,15 @@
 
 function Get-Connection {
+    <#
+    .SYNOPSIS
+        Returns a Zendesk connection context
+    .DESCRIPTION
+        Returns an object describing a connection to a Zendesk instance
+    .EXAMPLE
+        PS C:\> $context = Get-ZendeskConnection -Organization 'company' -Username 'name@company.net' -ApiKey $ApiKey
 
+        Sets $context to a connection context for the 'company' Zendesk instance as the user 'name@company.net'
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding()]
     Param (
@@ -27,9 +36,15 @@ function Get-Connection {
         Organization = $Organization
         BaseUrl      = "https://$Organization.zendesk.com"
         Credential   = [System.Management.Automation.PSCredential]::New("$Username/token", $ApiKey)
+        User         = $null
     }
 
     $context | Add-Member -TypeName 'ZendeskContext'
+
+    if (-not (Test-Connection -context $context)) {
+        throw $Script:InvalidConnection
+    }
+
     $context
 
 }

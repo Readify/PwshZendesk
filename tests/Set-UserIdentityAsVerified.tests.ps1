@@ -14,6 +14,7 @@ Describe 'Set-UserIdentityAsVerified' {
             Organization = 'company'
             BaseUrl      = 'https://company.testdesk.com'
             Credential   = [System.Management.Automation.PSCredential]::New("email", ('api-key' | ConvertTo-SecureString -AsPlainText -Force))
+            User         = [PSCustomObject]@{ role = 'admin' }
         }
         $context | Add-Member -TypeName 'ZendeskContext'
 
@@ -51,18 +52,13 @@ Describe 'Set-UserIdentityAsVerified' {
             { Set-UserIdentityAsVerified -UserId 'a' -Id 1 } | Should -Throw
         }
 
-        It 'Hits the correct endpoint' {
-            Set-UserIdentityAsVerified -UserId 1 -Id 1 -Confirm:$false
-            Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '/api/v2/users/\d+/identities/\d+/verify' -and $Method -eq 'Put' } -Scope It
-        }
-
         It 'Passes on the UserId' {
-            Set-UserIdentityAsVerified -UserId 736088406 -Id 1 -Confirm:$false
+            Set-UserIdentityAsVerified -Context $context -UserId 736088406 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
         It 'Passes on the Id' {
-            Set-UserIdentityAsVerified -UserId 1 -Id 736088406 -Confirm:$false
+            Set-UserIdentityAsVerified -Context $context -UserId 1 -Id 736088406 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
@@ -72,7 +68,7 @@ Describe 'Set-UserIdentityAsVerified' {
         }
 
         It 'Does nothing in WhatIf' {
-            Set-UserIdentityAsVerified -UserId 1 -Id 1 -WhatIf
+            Set-UserIdentityAsVerified -Context $context -UserId 1 -Id 1 -WhatIf
             Assert-MockCalled Invoke-Method -Exactly 0 -Scope It
         }
     }

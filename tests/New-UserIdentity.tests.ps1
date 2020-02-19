@@ -14,6 +14,7 @@ Describe 'New-UserIdentity' {
             Organization = 'company'
             BaseUrl      = 'https://company.testdesk.com'
             Credential   = [System.Management.Automation.PSCredential]::New("email", ('api-key' | ConvertTo-SecureString -AsPlainText -Force))
+            User         = [PSCustomObject]@{ role = 'admin' }
         }
         $context | Add-Member -TypeName 'ZendeskContext'
 
@@ -116,7 +117,7 @@ Describe 'New-UserIdentity' {
         }
 
         It 'Does nothing in WhatIf' {
-            Remove-UserIdentity -UserId 1 -Id 1 -WhatIf
+            New-UserIdentity -Context $context -UserId 1 -Type 'email' -Value 'name@company.com' -WhatIf
             Assert-MockCalled Invoke-Method -Exactly 0 -Scope It
         }
     }
