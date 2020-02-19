@@ -18,6 +18,8 @@ function Restore-SuspendedTicket {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     if ($Id.Count -gt 1) {
         $ids = $Id -join ','
         $path = "/api/v2/suspended_tickets/recover_many.json?ids=$ids"
