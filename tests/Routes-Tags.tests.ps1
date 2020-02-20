@@ -368,26 +368,26 @@ Describe 'Tags Routes' {
 
                 $context.User.role = 'admin'
 
-                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false} | Should -Not -Throw
+                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false } | Should -Not -Throw
                 Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Delete' -and $Uri -match '/api/v2/organizations/\d+/tags.json' } -Scope It
             }
 
             It 'Does not allow end users to call' {
                 $context.User.role = 'end-user'
 
-                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false} | Should -Throw 'Authenticated user must have role'
+                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false } | Should -Throw 'Authenticated user must have role'
             }
 
             It 'Allows agents to call' {
                 $context.User.role = 'agent'
 
-                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false} | Should -Not -Throw
+                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false } | Should -Not -Throw
             }
 
             It 'Allows admins to call' {
                 $context.User.role = 'admin'
 
-                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false} | Should -Not -Throw
+                { Remove-Tag -Context $context -OrganizationId 1 -Tag 'Delivery' -Confirm:$false } | Should -Not -Throw
             }
         }
 

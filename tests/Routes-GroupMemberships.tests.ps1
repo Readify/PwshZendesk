@@ -237,7 +237,7 @@ Describe 'Group Memberships Routes' {
         } # agent GET /api/v2/users/{user_id}/group_memberships/{id}.json
 
         Context 'Create Membership' {
-            $member = [PSCustomObject]@{ user_id = 1; group_id = 2}
+            $member = [PSCustomObject]@{ user_id = 1; group_id = 2 }
 
             It 'Matches the endpoint' {
                 if ($IsInteractive) {

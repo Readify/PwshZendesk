@@ -359,7 +359,7 @@ Describe 'Users Routes' {
 
         }
 
-        Context 'Merge Self With Another User' {} # end-user PUT /api/v2/users/me/merge.json
+        Context 'Merge Self With Another User' { } # end-user PUT /api/v2/users/me/merge.json
 
         Context 'Merge End Users' {
 

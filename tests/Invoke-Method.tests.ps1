@@ -76,13 +76,14 @@ Describe 'Invoke-Method' {
         }
 
         It 'Throws with no invalid connection type' {
-            {
+            $block = {
                 Invoke-Method -Path '/' -Context [PSCustomObject]@{
                     Organization = 'company'
                     BaseUrl = 'https://company.testdesk.com'
                     Credential = $null
                 }
-            } | Should -Throw
+            }
+            $block | Should -Throw
         }
 
         It 'Converts Body to JSON by default' {
