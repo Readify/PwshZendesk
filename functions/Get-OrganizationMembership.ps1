@@ -8,6 +8,8 @@ function Get-OrganizationMembership {
         # Unique Id of the organization membership to retrieve
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Id')]
+        [Parameter(Mandatory = $false,
+            ParameterSetName = 'UserId')]
         [ValidateRange(1, [Int64]::MaxValue)]
         [Int64]
         $Id,
@@ -33,6 +35,8 @@ function Get-OrganizationMembership {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $key = 'organization_memberships'
 
     switch ($PSCMDlet.ParameterSetName) {
@@ -42,7 +46,11 @@ function Get-OrganizationMembership {
         }
 
         'UserId' {
-            $path = "api/v2/users/$UserId/organization_memberships.json"
+            if ($PSBoundParameters.ContainsKey('Id')) {
+                $path = "/api/v2/users/$UserId/organization_memberships/$Id.json"
+            } else {
+                $path = "/api/v2/users/$UserId/organization_memberships.json"
+            }
         }
 
         'OrganizationId' {

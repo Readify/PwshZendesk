@@ -12,6 +12,13 @@ function Remove-OrganizationMembership {
         [Int64[]]
         $Id,
 
+        # Unique Id of the user to remove organization membership for
+        [Parameter(Mandatory = $false)]
+        [ValidateRange(1, [Int64]::MaxValue)]
+        [ValidateNotNullOrEmpty()]
+        [Int64[]]
+        $UserId,
+
         # Zendesk Connection Context from `Get-ZendeskConnection`
         [Parameter(Mandatory = $false)]
         [PSTypeName('ZendeskContext')]
@@ -19,11 +26,21 @@ function Remove-OrganizationMembership {
         $Context = $null
     )
 
-    if ($Id.count -gt 1) {
-        $ids = $Id -join ','
-        $path = "/api/v2/organization_memberships/destroy_many.json?ids=$ids"
+    Assert-IsAgent -Context $Context
+
+    if ($PSBoundParameters.ContainsKey('UserId')) {
+        if ($Id.count -gt 1) {
+            throw 'Bulk delete not supported when associated with a specific user.'
+        } else {
+            $path = "/api/v2/users/$UserId/organization_memberships/$Id.json"
+        }
     } else {
-        $path = "/api/v2/organization_memberships/$Id.json"
+        if ($Id.count -gt 1) {
+            $ids = $Id -join ','
+            $path = "/api/v2/organization_memberships/destroy_many.json?ids=$ids"
+        } else {
+            $path = "/api/v2/organization_memberships/$Id.json"
+        }
     }
 
     if ($PSCmdlet.ShouldProcess("$Id", 'Delete Organization Membership')) {
