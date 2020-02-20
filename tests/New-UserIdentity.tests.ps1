@@ -41,11 +41,11 @@ Describe 'New-UserIdentity' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { New-UserIdentity -Context $context -UserId -1 -Value 'name@company.com'} | Should -Throw
+            { New-UserIdentity -Context $context -UserId -1 -Value 'name@company.com' } | Should -Throw
         }
 
         It 'Requires Type to be a string' {
-            { New-UserIdentity -Context $context -UserId -1 -Type @{ A = 1 } -Value 'name@company.com'} | Should -Throw
+            { New-UserIdentity -Context $context -UserId -1 -Type @{ A = 1 } -Value 'name@company.com' } | Should -Throw
         }
 
         It 'Accepts Type: <Type>' -TestCases @(

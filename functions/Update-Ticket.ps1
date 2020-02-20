@@ -198,7 +198,7 @@ function Update-Ticket {
         }
 
         $body = @{
-            ticket = @{}
+            ticket = @{ }
         }
 
         $map = @{

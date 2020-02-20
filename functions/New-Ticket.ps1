@@ -168,7 +168,7 @@ function New-Ticket {
     $path = "/api/v2/tickets.json"
 
     $body = @{
-        ticket = @{}
+        ticket = @{ }
     }
 
     $map = @{

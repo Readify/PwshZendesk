@@ -69,7 +69,7 @@ stages:
     - pwsh: |
         Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
         Import-Module -Name './PSScriptAnalyzer/'
-        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+        Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - pwsh: |
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
@@ -90,7 +90,7 @@ stages:
     - pwsh: |
         Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
         Import-Module -Name './PSScriptAnalyzer/'
-        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+        Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - pwsh: |
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
@@ -111,7 +111,7 @@ stages:
     - pwsh: |
         Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
         Import-Module -Name './PSScriptAnalyzer/'
-        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+        Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - pwsh: |
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
@@ -132,7 +132,7 @@ stages:
     - powershell: |
         Save-Module -Name PSScriptAnalyzer -Path '.' -Repository PSGallery -Confirm:$false
         Resolve-Path -Path './PSScriptAnalyzer/*/PSScriptAnalyzer.psd1' | Import-Module
-        Invoke-ScriptAnalyzer -Path '$(Pipeline.Workspace)' -Recurse -EnableExit -ReportSummary | Format-Table -Autosize
+        Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - powershell: |
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
