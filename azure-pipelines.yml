@@ -160,11 +160,14 @@ stages:
         git -c "user.name=$(Build.RequestedFor)" -c "user.email=$(Build.RequestedForEmail)" commit -m "Updated module version: $(Build.BuildNumber) [skip ci]"
         git push origin HEAD:master
       workingDirectory: '$(Build.SourcesDirectory)'
+
   - job: Github_Release
+    dependsOn: Commit_Updated_Manifest
     steps:
     - task: GithubRelease@0
       displayName: 'Create GitHub Release'
       inputs:
+        target: master
         gitHubConnection: RobFaie
         repositoryName: Readify/PwshZendesk
         tagSource: manual
