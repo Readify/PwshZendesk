@@ -40,6 +40,8 @@ function Get-UserIdentity {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     if ($PSBoundParameters.ContainsKey('Id')) {
         $path = "/api/v2/users/$UserId/identities/$Id.json"
         $key = 'identity'

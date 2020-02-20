@@ -25,15 +25,15 @@ Describe 'Send-UserIdentityVerification' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Send-UserIdentityVerification -UserId 1 } | Should -Throw
+            { Send-UserIdentityVerification -Context $context -UserId 1 } | Should -Throw
         }
 
         It 'Requires Id to be positive' {
-            { Send-UserIdentityVerification -UserId 1 -Id -1 } | Should -Throw
+            { Send-UserIdentityVerification -Context $context -UserId 1 -Id -1 } | Should -Throw
         }
 
         It 'Requires Id to be Int64' {
-            { Send-UserIdentityVerification -UserId 1 -Id 'a' } | Should -Throw
+            { Send-UserIdentityVerification -Context $context -UserId 1 -Id 'a' } | Should -Throw
         }
 
         It 'Requires a UserId to be supplied' {
@@ -41,29 +41,29 @@ Describe 'Send-UserIdentityVerification' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Send-UserIdentityVerification -Id 1 } | Should -Throw
+            { Send-UserIdentityVerification -Context $context -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be positive' {
-            { Send-UserIdentityVerification -UserId -1 -Id 1 } | Should -Throw
+            { Send-UserIdentityVerification -Context $context -UserId -1 -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be Int64' {
-            { Send-UserIdentityVerification -UserId 'a' -Id 1 } | Should -Throw
+            { Send-UserIdentityVerification -Context $context -UserId 'a' -Id 1 } | Should -Throw
         }
 
         It 'Hits the correct endpoint' {
-            Send-UserIdentityVerification -UserId 1 -Id 1 -Confirm:$false
+            Send-UserIdentityVerification -Context $context -UserId 1 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '/api/v2/users/\d+/identities/\d+/request_verification' -and $Method -eq 'Put' } -Scope It
         }
 
         It 'Passes on the UserId' {
-            Send-UserIdentityVerification -UserId 736088406 -Id 1 -Confirm:$false
+            Send-UserIdentityVerification -Context $context -UserId 736088406 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
         It 'Passes on the Id' {
-            Send-UserIdentityVerification -UserId 1 -Id 736088406 -Confirm:$false
+            Send-UserIdentityVerification -Context $context -UserId 1 -Id 736088406 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
@@ -73,7 +73,7 @@ Describe 'Send-UserIdentityVerification' {
         }
 
         It 'Does nothing in WhatIf' {
-            Send-UserIdentityVerification -UserId 1 -Id 1 -WhatIf
+            Send-UserIdentityVerification -Context $context -UserId 1 -Id 1 -WhatIf
             Assert-MockCalled Invoke-Method -Exactly 0 -Scope It
         }
     }

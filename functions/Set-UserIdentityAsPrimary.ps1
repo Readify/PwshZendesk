@@ -32,7 +32,11 @@ function Set-UserIdentityAsPrimary {
         $Context = $null
     )
 
-    $path = "/api/v2/users/$UserId/identities/$Id/make_primary"
+    if (Test-IsEndUser -Context $Context) {
+        $path = "/api/v2/end_users/$UserId/identities/$Id/make_primary"
+    } else {
+        $path = "/api/v2/users/$UserId/identities/$Id/make_primary"
+    }
 
     if ($PSCmdlet.ShouldProcess('Set User Identity as Primary', $Id)) {
         $result = Invoke-Method -Context $Context -Method 'Put' -Path $path -Verbose:$VerbosePreference

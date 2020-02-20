@@ -32,6 +32,8 @@ function Send-UserIdentityVerification {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $path = "/api/v2/users/$UserId/identities/$Id/request_verification.json"
 
     if ($PSCmdlet.ShouldProcess('Send a User Identity Verification', $Id)) {

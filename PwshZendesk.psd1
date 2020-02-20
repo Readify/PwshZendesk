@@ -116,7 +116,7 @@
         'New-GroupMembership',                 'New-ZendeskGroupMembership'
         'New-OrganizationMembership',          'New-ZendeskOrganizationMembership'
         'New-Ticket',                          'New-ZendeskTicket'
-        'New-UserIdentity',                    'New-UserIdentity'
+        'New-UserIdentity',                    'New-ZendeskUserIdentity'
         'Remove-Attachment',                   'Remove-ZendeskAttachment'
         'Remove-Group',                        'Remove-ZendeskGroup'
         'Remove-GroupMembership',              'Remove-ZendeskGroupMembership'
@@ -142,6 +142,7 @@
         'Update-Group',                        'Update-ZendeskGroup'
         'Update-Ticket',                       'Update-ZendeskTicket'
         'Update-User',                         'Update-ZendeskUser'
+        'Update-UserIdentity',                 'Update-ZendeskUserIdentity'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

@@ -25,15 +25,15 @@ Describe 'New-UserIdentity' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { New-UserIdentity -Type 'email' -Value 'name@company.com' } | Should -Throw
+            { New-UserIdentity -Context $context -Type 'email' -Value 'name@company.com' } | Should -Throw
         }
 
         It 'Requires UserId to be positive' {
-            { New-UserIdentity -UserId -1 -Type 'email' -Value 'name@company.com' } | Should -Throw
+            { New-UserIdentity -Context $context -UserId -1 -Type 'email' -Value 'name@company.com' } | Should -Throw
         }
 
         It 'Requires UserId to be Int64' {
-            { New-UserIdentity -UserId 'a' -Type 'email' -Value 'name@company.com' } | Should -Throw
+            { New-UserIdentity -Context $context -UserId 'a' -Type 'email' -Value 'name@company.com' } | Should -Throw
         }
 
         It 'Requires a Type to be supplied' {
@@ -41,11 +41,11 @@ Describe 'New-UserIdentity' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { New-UserIdentity -UserId -1 -Value 'name@company.com'} | Should -Throw
+            { New-UserIdentity -Context $context -UserId -1 -Value 'name@company.com'} | Should -Throw
         }
 
         It 'Requires Type to be a string' {
-            { New-UserIdentity -UserId -1 -Type @{ A = 1 } -Value 'name@company.com'} | Should -Throw
+            { New-UserIdentity -Context $context -UserId -1 -Type @{ A = 1 } -Value 'name@company.com'} | Should -Throw
         }
 
         It 'Accepts Type: <Type>' -TestCases @(
@@ -59,32 +59,32 @@ Describe 'New-UserIdentity' {
         ) {
             param ($Type)
 
-            New-UserIdentity -UserId 1 -Type $Type -Value 'value' -Confirm:$false
+            New-UserIdentity -Context $context -UserId 1 -Type $Type -Value 'value' -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -Scope It
         }
 
         It 'Create Identity Endpoint' {
-            New-UserIdentity -UserId 1 -Type 'email' -Value 'name@company.com' -Confirm:$false
+            New-UserIdentity -Context $context -UserId 1 -Type 'email' -Value 'name@company.com' -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '/api/v2/users/\d+/identities.json' -and $Method -eq 'Post' } -Scope It
         }
 
         It 'Passes on the UserId' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
         It 'Explicitly set as Verified' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Body.identity.verified -eq $true } -Scope It
         }
 
         It 'Explicitly set as not Verified' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified:$false -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified:$false -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Body.identity.verified -eq $false } -Scope It
         }
 
         It 'Implicitly set as not Verified' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Body.identity.verified -eq $false } -Scope It
         }
 
@@ -93,21 +93,21 @@ Describe 'New-UserIdentity' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Primary -Confirm:$false } | Should -Throw
+            { New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Primary -Confirm:$false } | Should -Throw
         }
 
         It 'Explicitly set as Primary' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Primary -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Primary -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Body.identity.primary -eq $true } -Scope It
         }
 
         It 'Explicitly set as not Primary' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Primary:$false -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Primary:$false -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Body.identity.primary -eq $false } -Scope It
         }
 
         It 'Implicitly set as not Primary' {
-            New-UserIdentity -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Confirm:$false
+            New-UserIdentity -Context $context -UserId 736088406 -Type 'email' -Value 'name@company.com' -Verified -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Body.identity.primary -eq $false } -Scope It
         }
 

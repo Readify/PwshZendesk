@@ -32,6 +32,8 @@ function Set-UserIdentityAsVerified {
         $Context = $null
     )
 
+    Assert-IsAgent -Context $Context
+
     $path = "/api/v2/users/$UserId/identities/$Id/verify"
 
     if ($PSCmdlet.ShouldProcess('Set User Identity as Verified', $Id)) {

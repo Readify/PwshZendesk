@@ -25,15 +25,15 @@ Describe 'Set-UserIdentityAsPrimary' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Set-UserIdentityAsPrimary -UserId 1 } | Should -Throw
+            { Set-UserIdentityAsPrimary -Context $context -UserId 1 } | Should -Throw
         }
 
         It 'Requires Id to be positive' {
-            { Set-UserIdentityAsPrimary -UserId 1 -Id -1 } | Should -Throw
+            { Set-UserIdentityAsPrimary -Context $context -UserId 1 -Id -1 } | Should -Throw
         }
 
         It 'Requires Id to be Int64' {
-            { Set-UserIdentityAsPrimary -UserId 1 -Id 'a' } | Should -Throw
+            { Set-UserIdentityAsPrimary -Context $context -UserId 1 -Id 'a' } | Should -Throw
         }
 
         It 'Requires a UserId to be supplied' {
@@ -41,29 +41,29 @@ Describe 'Set-UserIdentityAsPrimary' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Set-UserIdentityAsPrimary -Id 1 } | Should -Throw
+            { Set-UserIdentityAsPrimary -Context $context -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be positive' {
-            { Set-UserIdentityAsPrimary -UserId -1 -Id 1 } | Should -Throw
+            { Set-UserIdentityAsPrimary -Context $context -UserId -1 -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be Int64' {
-            { Set-UserIdentityAsPrimary -UserId 'a' -Id 1 } | Should -Throw
+            { Set-UserIdentityAsPrimary -Context $context -UserId 'a' -Id 1 } | Should -Throw
         }
 
         It 'Hits the correct endpoint' {
-            Set-UserIdentityAsPrimary -UserId 1 -Id 1 -Confirm:$false
+            Set-UserIdentityAsPrimary -Context $context -UserId 1 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '/api/v2/users/\d+/identities/\d+/make_primary' -and $Method -eq 'Put' } -Scope It
         }
 
         It 'Passes on the UserId' {
-            Set-UserIdentityAsPrimary -UserId 736088406 -Id 1 -Confirm:$false
+            Set-UserIdentityAsPrimary -Context $context -UserId 736088406 -Id 1 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
         It 'Passes on the Id' {
-            Set-UserIdentityAsPrimary -UserId 1 -Id 736088406 -Confirm:$false
+            Set-UserIdentityAsPrimary -Context $context -UserId 1 -Id 736088406 -Confirm:$false
             Assert-MockCalled Invoke-Method -Exactly 1 -ParameterFilter { $Path -match '736088406' } -Scope It
         }
 
@@ -73,7 +73,7 @@ Describe 'Set-UserIdentityAsPrimary' {
         }
 
         It 'Does nothing in WhatIf' {
-            Set-UserIdentityAsPrimary -UserId 1 -Id 1 -WhatIf
+            Set-UserIdentityAsPrimary -Context $context -UserId 1 -Id 1 -WhatIf
             Assert-MockCalled Invoke-Method -Exactly 0 -Scope It
         }
     }

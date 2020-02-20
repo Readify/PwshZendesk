@@ -25,15 +25,15 @@ Describe 'Set-UserIdentityAsVerified' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Set-UserIdentityAsVerified -UserId 1 } | Should -Throw
+            { Set-UserIdentityAsVerified -Context $context -UserId 1 } | Should -Throw
         }
 
         It 'Requires Id to be positive' {
-            { Set-UserIdentityAsVerified -UserId 1 -Id -1 } | Should -Throw
+            { Set-UserIdentityAsVerified -Context $context -UserId 1 -Id -1 } | Should -Throw
         }
 
         It 'Requires Id to be Int64' {
-            { Set-UserIdentityAsVerified -UserId 1 -Id 'a' } | Should -Throw
+            { Set-UserIdentityAsVerified -Context $context -UserId 1 -Id 'a' } | Should -Throw
         }
 
         It 'Requires a UserId to be supplied' {
@@ -41,15 +41,15 @@ Describe 'Set-UserIdentityAsVerified' {
                 throw 'Please run test in non-interactive mode'
             }
 
-            { Set-UserIdentityAsVerified -Id 1 } | Should -Throw
+            { Set-UserIdentityAsVerified -Context $context -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be positive' {
-            { Set-UserIdentityAsVerified -UserId -1 -Id 1 } | Should -Throw
+            { Set-UserIdentityAsVerified -Context $context -UserId -1 -Id 1 } | Should -Throw
         }
 
         It 'Requires UserId to be Int64' {
-            { Set-UserIdentityAsVerified -UserId 'a' -Id 1 } | Should -Throw
+            { Set-UserIdentityAsVerified -Context $context -UserId 'a' -Id 1 } | Should -Throw
         }
 
         It 'Passes on the UserId' {
