@@ -24,6 +24,8 @@ function Export-TicketEvent {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     $params = @{
         Context    = $Context
         Path       = "/api/v2/incremental/ticket_events.json?start_time=$Timestamp"

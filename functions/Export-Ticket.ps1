@@ -18,6 +18,8 @@ function Export-Ticket {
         $Context = $null
     )
 
+    Assert-IsAdmin -Context $Context
+
     $path = "/api/v2/incremental/tickets.json?start_time=$Timestamp"
 
     $result = Invoke-Method -Context $Context -Path $path -Pagination $false -Verbose:$VerbosePreference
