@@ -7,11 +7,13 @@ function New-Ticket {
 
         # The subject of the ticket
         [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
         [String]
         $Subject,
 
         # The dynamic content placeholder
         [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
         [String]
         $RawSubject,
 
@@ -99,6 +101,7 @@ function New-Ticket {
         # Allowed values are open, pending, hold, solved or closed
         [Parameter(Mandatory = $false)]
         [ValidateSet('new', 'open', 'pending', 'hold', 'solved', 'closed')]
+        [String]
         $Status,
 
         # An array of tags to add to the ticket.
@@ -109,6 +112,7 @@ function New-Ticket {
 
         # An ID to link tickets to local records
         [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
         [String]
         $ExternalId,
 
@@ -142,13 +146,14 @@ function New-Ticket {
         [Int64]
         $ProblemId,
 
-        # For tickets of type "task", the due date of the task. Accepts the ISO 8601 date format (yyyy-mm-dd)
+        # For tickets of type "task", the due date of the task.
         [Parameter(Mandatory = $false)]
         [DateTime]
         $DueAt,
 
         # An array of the custom field objects consisting of ids and values.
         [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
         [PSCustomObject[]]
         $CustomFields,
 
@@ -191,7 +196,6 @@ function New-Ticket {
         follower_ids           = 'FollowerId'
         forum_topic_id         = 'ForumTopicId'
         problem_id             = 'ProblemId'
-        due_at                 = 'DueAt'
         tags                   = 'Tags'
         custom_fields          = 'CustomFields'
         via_followup_source_id = 'FollowupId'
@@ -207,6 +211,10 @@ function New-Ticket {
         if ($PSBoundParameters.ContainsKey($parameter)) {
             $body.ticket[$property] = $PSBoundParameters.$parameter
         }
+    }
+
+    if ($PSBoundParameters.ContainsKey('DueAt')) {
+        $body.ticket['due_at'] = $DueAt.ToString('yyyy-MM-dd')
     }
 
     if ($PSCmdlet.ShouldProcess($Subject, "Create Zendesk Ticket")) {

@@ -71,7 +71,7 @@ function Set-User {
         # Designates whether the user has forum moderation capabilities.
         [Parameter(Mandatory = $false,
             ParameterSetName = 'Properties')]
-        [boolean]
+        [Boolean]
         $Moderator,
 
         # Any notes you want to store about the user.
