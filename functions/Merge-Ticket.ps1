@@ -1,10 +1,26 @@
 
 function Merge-Ticket {
+    <#
+    .SYNOPSIS
+        Merges one or more tickets into the ticket with the specified id.
+    .DESCRIPTION
+        Merges one or more tickets into the ticket with the specified id. Additional requirements can be found at: https://support.zendesk.com/hc/en-us/articles/203690916
+    .EXAMPLE
+        PS C:\> Merge-ZendeskTicket -SourceTicketId 1 -TargetTicketId 2
 
+        Merges ticket with id 1 into ticket with id 2.
+    .EXAMPLE
+        PS C:\> Merge-ZendeskTicket -SourceTicketId 1 -TargetTicketId 2 -SourceTicketComment $sourceComment -TargetTicketComment $targetComment
+
+        Merges ticket with id 1 into ticket with id 2 supplying specific comments to be left on each ticket.
+    .EXAMPLE
+        PS C:\> Merge-ZendeskTicket -Context $context -SourceTicketId 1 -TargetTicketId 2
+
+        Merges ticket with id 1 into ticket with id 2 with connection context from `Get-ZendeskConnection`.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the ticket or tickets to merge into target ticket
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

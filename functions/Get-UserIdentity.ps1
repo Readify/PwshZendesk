@@ -6,15 +6,15 @@ function Get-UserIdentity {
     .DESCRIPTION
         Returns all user identities for a given user id or shows the identity with the given id.
     .EXAMPLE
-        PS C:\> Get-UserIdentity -UserId `427427011998`
+        PS C:\> Get-ZendeskUserIdentity -UserId `427427011998`
 
         Gets all User Identities for the User with Id `427427011998`
     .EXAMPLE
-        PS C:\> Get-UserIdentity -UserId `427427011998` -Id `211258542687`
+        PS C:\> Get-ZendeskUserIdentity -UserId `427427011998` -Id `211258542687`
 
         Gets the User Identity `211258542687` for the User with Id `427427011998`
     .EXAMPLE
-        PS C:\> Get-UserIdentity -UserId `427427011998` -Context $context
+        PS C:\> Get-ZendeskUserIdentity -UserId `427427011998` -Context $context
 
         Gets all User Identities for the User with Id `427427011998` providing the optional Zendesk Context `$context`
     #>

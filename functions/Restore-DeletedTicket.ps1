@@ -1,10 +1,22 @@
 
 function Restore-DeletedTicket {
+    <#
+    .SYNOPSIS
+        Restores a deleted ticket or tickets.
+    .DESCRIPTION
+        Restores a deleted ticket or tickets.
+    .EXAMPLE
+        PS C:\> Restore-ZendeskDeletedTicket -Id 1
 
+        Restored the deleted ticket with id 1
+    .EXAMPLE
+        PS C:\> Restore-ZendeskDeletedTicket -Id 1, 2, 3
+
+        Restored the deleted tickets with ids 1, 2, and 3
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of soft deleted ticket to restore
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

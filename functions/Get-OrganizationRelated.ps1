@@ -1,4 +1,18 @@
 function Get-OrganizationRelated {
+    <#
+    .SYNOPSIS
+        Gets the number of users and tickets associated with a supplied organization
+    .DESCRIPTION
+        Gets the number of users and tickets associated with a supplied organization
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationRelated -OrganizationId 1
+
+        Gets the number of users and tickets associated with organization with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationRelated -Context $context -OrganizationId 1
+
+        Gets the number of users and tickets associated with organization with id 1 with connection context returned by `Get-ZendeskConnection`
+    #>
     [CmdletBinding(DefaultParameterSetName = 'default')]
     Param (
         # Unique Id of the group to retrieve

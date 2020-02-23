@@ -1,10 +1,22 @@
 
 function Merge-User {
+    <#
+    .SYNOPSIS
+        Merges two end users together.
+    .DESCRIPTION
+        Merges two end users together. Agents and Admin cannot be merged.
+    .EXAMPLE
+        PS C:\> Merge-ZendeskUser -UserId 1 -TargetUserId 2
 
+        Merges end user with id 1 into end user with id 2.
+    .EXAMPLE
+        PS C:\> Merge-ZendeskUser -Context $context -UserId 1 -TargetUserId 2
+
+        Merges end user with id 1 into end user with id 2 providing a connection context returend by `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the user to merge
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

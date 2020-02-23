@@ -1,6 +1,55 @@
 
 function Get-Ticket {
+    <#
+    .SYNOPSIS
+        Gets one or more tickets
+    .DESCRIPTION
+        Gets one or more tickets by Id, External Id, User Id, or OrganizationId with optional filters.
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket
 
+        Gets all tickets
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -Id 1
+
+        Gets the ticket with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -Id 1, 2, 3
+
+        Gets the tickets with ids 1, 2, and 3
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -ExternalId 1
+
+        Gets ticket with external id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -UserId 1 -Requested
+
+        Gets tickets requested by the user with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -UserId 1 -Assigned
+
+        Gets tickets assigned to the user with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -UserId 1 -CCd
+
+        Gets tickets with the user with id 1 CC'd
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -OrganizationId 1
+
+        Gets tickets from the organization with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -Recent
+
+        Gets tickets recently viewed by the logged in user.
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -Id 1 -SideLoad 'groups'
+
+        Gets the ticket with id 1 as well as the group it is assigned to.
+    .EXAMPLE
+        PS C:\> Get-ZendeskTicket -Context $context
+
+        Gets all tickets using a connection context from `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (

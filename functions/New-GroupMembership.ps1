@@ -1,6 +1,31 @@
 
 function New-GroupMembership {
+    <#
+    .SYNOPSIS
+        Assigns an agent to a given group.
+    .DESCRIPTION
+        Assigns an agent to a given group.
+    .EXAMPLE
+        PS C:\> New-ZendeskGroupMembership -UserId 1 -GroupId 2
 
+        Assigns the agent with id 1 to the group with id 2
+    .EXAMPLE
+        PS C:\> New-ZendeskGroupMembership -UserId 1 -GroupId 2 -Default
+
+        Assigns the agent with id 1 to the group with id 2 and makes that group their default group.
+    .EXAMPLE
+        PS C:\> New-ZendeskGroupMembership -Membership @{ UserId = 1; GroupId = 2 }
+
+        Assigns the agent with id 1 to the group with id 2
+    .EXAMPLE
+        PS C:\> New-ZendeskGroupMembership -Membership @( @{ UserId = 1; GroupId = 2 }, @{ UserId = 1; GroupId = 3 } )
+
+        Assigns the agent with id 1 to the groups with ids 2 and 3
+    .EXAMPLE
+        PS C:\> New-ZendeskGroupMembership -Context $context -UserId 1 -GroupId 2
+
+        Assigns the agent with id 1 to the group with id 2 using a connection context from `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (

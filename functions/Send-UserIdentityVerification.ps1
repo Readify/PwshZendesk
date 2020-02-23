@@ -6,7 +6,7 @@ function Send-UserIdentityVerification {
     .DESCRIPTION
         Sends the user a verification email with a link to verify ownership of the email address.
     .EXAMPLE
-        PS C:\> Send-UserIdentityVerification -UserId `427427011998` -Id `211258542687`
+        PS C:\> Send-ZendeskUserIdentityVerification -UserId `427427011998` -Id `211258542687`
 
         Triggers a Zendesk Identity Verification Email for User Identity `211258542687`
     #>

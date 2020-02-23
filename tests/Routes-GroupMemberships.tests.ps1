@@ -438,26 +438,26 @@ Describe 'Group Memberships Routes' {
 
                 $context.User.role = 'admin'
 
-                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -MembershipId 2 -Confirm:$false } | Should -Not -Throw
+                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -Id 2 -Confirm:$false } | Should -Not -Throw
                 Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Put' -and $Uri -match '/api/v2/users/\d+/group_memberships/\d+/make_default\.json' } -Scope It
             }
 
             It 'Does not allow end users to call' {
                 $context.User.role = 'end-user'
 
-                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -MembershipId 2 -Confirm:$false } | Should -Throw 'Authenticated user must have role'
+                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -Id 2 -Confirm:$false } | Should -Throw 'Authenticated user must have role'
             }
 
             It 'Allows agents to call' {
                 $context.User.role = 'agent'
 
-                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -MembershipId 2 -Confirm:$false } | Should -Not -Throw
+                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -Id 2 -Confirm:$false } | Should -Not -Throw
             }
 
             It 'Allows admins to call' {
                 $context.User.role = 'admin'
 
-                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -MembershipId 2 -Confirm:$false } | Should -Not -Throw
+                { Set-GroupMembershipAsDefault -Context $context -UserId 1 -Id 2 -Confirm:$false } | Should -Not -Throw
             }
         } # agent PUT /api/v2/users/{user_id}/group_memberships/{membership_id}/make_default.json
 

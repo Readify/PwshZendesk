@@ -1,10 +1,22 @@
 
 function Update-Group {
+    <#
+    .SYNOPSIS
+        Update the name of a Group
+    .DESCRIPTION
+        Update the name of a Group
+    .EXAMPLE
+        PS C:\> Update-ZendeskGroup -Id 1 -Name 'Products'
 
+        Updates the name of group with id `1` to be `Products`
+    .EXAMPLE
+        PS C:\> Update-ZendeskGroup -Context $context -Id 1 -Name 'Products'
+
+        Updates the name of group with id `1` to be `Products` using a `$context` retrieved from `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the group to update
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

@@ -1,10 +1,26 @@
 
 function New-Ticket {
+    <#
+    .SYNOPSIS
+        Creates a ticket.
+    .DESCRIPTION
+        Creates a ticket.
+    .EXAMPLE
+        PS C:\> New-ZendeskTicket -Comment @{ body = 'Access Request' }
 
+        Creates a ticket with the only reqired parameter, comment.
+    .EXAMPLE
+        PS C:\> New-ZendeskTicket -Subject 'Access Request' -Comment @{ body = 'System Access Request' }
+
+        Creates a ticket with a specific subject.
+    .EXAMPLE
+        PS C:\> New-ZendeskTicket -Comment @{ body = 'Access Request' }
+
+        Creates a ticket with the only reqired parameter, comment using a connection context from `Get-ZendeskConnection`.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # The subject of the ticket
         [Parameter(Mandatory = $false)]
         [String]

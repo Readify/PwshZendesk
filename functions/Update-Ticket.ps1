@@ -1,10 +1,30 @@
 
 function Update-Ticket {
+    <#
+    .SYNOPSIS
+        Updates one or more tickets
+    .DESCRIPTION
+        Updates one or more tickets
+    .EXAMPLE
+        PS C:\> Update-ZendeskTicket -Id 1 -Subject 'Access Request'
 
+        Updates the subject of the ticket with id 1 to 'Access Request'
+    .EXAMPLE
+        PS C:\> Update-ZendeskTicket -Id 1, 2 -Subject 'Access Request'
+
+        Updates the subject of the tickets with ids 1 and 2 to 'Access Request'
+    .EXAMPLE
+        PS C:\> Update-ZendeskTicket -Id 1 -Subject 'Access Request' -UpdatedStamp 132268985925191750 -SafeUpdate
+
+        Updates the subject of the ticket with id 1 to 'Access Request' only if no other changes have been made since 132268985925191750.
+    .EXAMPLE
+        PS C:\> Update-ZendeskTicket -Context $context -Id 1 -Subject 'Access Request'
+
+        Updates the subject of the ticket with id 1 to 'Access Request' with connection context from `Get-ZendeskContext`
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(DefaultParameterSetName = 'Property', SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Tickets to update
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Object')]

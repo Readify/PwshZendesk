@@ -1,6 +1,21 @@
 
 function Restore-SuspendedTicket {
+    <#
+    .SYNOPSIS
+        Recovers one or more suspended tickets
+    .DESCRIPTION
+        Recovers one or more suspended tickets
+    .EXAMPLE
+        PS C:\> Restore-ZendeskSuspendedTicket -Id 1
 
+        Recovers the suspended ticket with id 1
+    .EXAMPLE
+        PS C:\> Restore-ZendeskSuspendedTicket -Id 1, 2, 3
+
+        Recovers the suspended tickets with ids 1, 2, and 3
+    .NOTES
+        When recovering a single ticket, the requester is set to the authenticated agent who called the API, not the original requester. This prevents the ticket from being re-suspended after recovery.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (

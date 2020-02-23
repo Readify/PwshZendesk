@@ -1,10 +1,54 @@
 
 function Get-User {
+    <#
+    .SYNOPSIS
+        Retrieves one or more users.
+    .DESCRIPTION
+        Retrieves one or more users by Id, External Id, Group Id, Organziation Id, or role
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -Id 1
 
+        Gets the user with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -Id 1, 2, 3
+
+        Gets the users with ids 1, 2, and 3
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -ExternalId 1
+
+        Gets the user with external id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -ExternalId 1, 2, 3
+
+        Gets the users with external ids 1, 2, and 3
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -GroupId 1
+
+        Gets the users in group with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -OrganizationId 1
+
+        Gets the users in organization with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -Role 'admin'
+
+        Gets users with the admin role
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -RoleId 1
+
+        Gets users with the custom role with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -Id 1 -SideLoad 'groups'
+
+        Gets the user with id 1 and the groups they belong to.
+    .EXAMPLE
+        PS C:\> Get-ZendeskUser -Context $context -Id 1
+
+        Gets the user with id 1 using a connection context from `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (
-
         # Unique Id of the user to retrieve
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Id')]

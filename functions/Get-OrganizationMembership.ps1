@@ -1,10 +1,34 @@
 
 function Get-OrganizationMembership {
+    <#
+    .SYNOPSIS
+        Retrieves organization membershipss
+    .DESCRIPTION
+        Retrieves organization membershipss by Id, User, or Organization
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationMembership
 
+        Retrieves all organization memberships.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationMembership -Id 1
+
+        Retrieves organization membership with id 1.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationMembership -UserId 2
+
+        Retrieves organization memberships for user with id 2
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationMembership -Id 1 -UserId 2
+
+        Retrieves organization membership with id 1 explicitly associated with user with id 2
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganizationMembership -OrganizationId 1
+
+        Retrieves organization memberships associated with organization with id 1
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (
-
         # Unique Id of the organization membership to retrieve
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Id')]

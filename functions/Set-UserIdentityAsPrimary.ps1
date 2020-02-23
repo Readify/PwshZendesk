@@ -6,7 +6,7 @@ function Set-UserIdentityAsPrimary {
     .DESCRIPTION
         Sets the specified identity as primary.
     .EXAMPLE
-        PS C:\> Set-UserIdentityAsPrimary -UserId `427427011998` -Id `211258542687`
+        PS C:\> Set-ZendeskUserIdentityAsPrimary -UserId `427427011998` -Id `211258542687`
 
         Sets the User Identity `211258542687` for the User with Id `427427011998` as their primary Identity
     #>
