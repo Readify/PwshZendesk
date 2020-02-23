@@ -3,7 +3,7 @@ Param()
 
 Import-Module "$PSScriptRoot/../PwshZendesk.psm1" -Force
 
-Describe 'Invoke-Method' {
+Describe 'Invoke-Method' -Tags 'internet' {
 
     InModuleScope PwshZendesk {
 
