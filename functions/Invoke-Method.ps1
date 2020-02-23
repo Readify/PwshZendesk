@@ -19,6 +19,7 @@ function Invoke-Method {
 
         # Body of the Rest call
         [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
         [PSCustomObject]
         $Body,
 

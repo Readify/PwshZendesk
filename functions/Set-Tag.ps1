@@ -28,6 +28,7 @@ function Set-Tag {
 
         # Tags to set for the entity. Existing tags not included here will be removed.
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [String[]]
         $Tag,
 

@@ -27,6 +27,7 @@ function Add-Tag {
 
         # Tags to add to entity
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [String[]]
         $Tag,
 
