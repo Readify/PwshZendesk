@@ -75,8 +75,16 @@ stages:
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
         Import-Module -Name './Pester/'
         Set-Location -Path '$(Pipeline.Workspace)'
-        Invoke-Pester -EnableExit
+        Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Mac.xml" -OutputFormat NUnitXML
       displayName: Pester
+      continueOnError: true
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: 'Test-Pester-Mac.xml'
+        searchFolder: $(System.DefaultWorkingDirectory)
+        mergeTestResults: true
+        buildPlatform: Mac 10.14
 
   - job: Ubuntu_18_04
     pool:
@@ -96,8 +104,16 @@ stages:
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
         Import-Module -Name './Pester/'
         Set-Location -Path '$(Pipeline.Workspace)'
-        Invoke-Pester -EnableExit
+        Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Ubuntu.xml" -OutputFormat NUnitXML
       displayName: Pester
+      continueOnError: true
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: 'Test-Pester-Ubuntu.xml'
+        searchFolder: $(System.DefaultWorkingDirectory)
+        mergeTestResults: true
+        buildPlatform: Ubuntu 18.04
 
   - job: Windows_2019_Pwsh
     pool:
@@ -117,8 +133,16 @@ stages:
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
         Import-Module -Name './Pester/'
         Set-Location -Path '$(Pipeline.Workspace)'
-        Invoke-Pester -EnableExit
+        Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Win2019.xml" -OutputFormat NUnitXML
       displayName: Pester
+      continueOnError: true
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: 'Test-Pester-Win2019.xml'
+        searchFolder: $(System.DefaultWorkingDirectory)
+        mergeTestResults: true
+        buildPlatform: Windows Server 2019
 
   - job: Windows_2016_Powershell
     pool:
@@ -138,8 +162,16 @@ stages:
         Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
         Resolve-Path -Path './Pester/*/Pester.psd1' | Import-Module
         Set-Location -Path '$(Pipeline.Workspace)'
-        Invoke-Pester -EnableExit
+        Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Win2016.xml" -OutputFormat NUnitXML
       displayName: Pester
+      continueOnError: true
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: 'Test-Pester-Win2016.xml'
+        searchFolder: $(System.DefaultWorkingDirectory)
+        mergeTestResults: true
+        buildPlatform: Windows Server 2016
 
 - stage: Deploy
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
