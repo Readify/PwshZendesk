@@ -55,7 +55,7 @@ function Set-Tag {
         }
     }
 
-    $body = {
+    $body = @{
         tags = $Tag
     }
 
