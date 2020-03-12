@@ -296,26 +296,26 @@ Describe 'Users Routes' {
 
                 $context.User.role = 'admin'
 
-                { Set-User -Context $context -Email 'name@company.net' -Confirm:$false } | Should -Not -Throw
+                { Set-User -Context $context -Name 'Bob Johnson' -Confirm:$false } | Should -Not -Throw
                 Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Method -eq 'Post' -and $Uri -match '/api/v2/users/create_or_update\.json' } -Scope It
             }
 
             It 'Does not allow end users to call' {
                 $context.User.role = 'end-user'
 
-                { Set-User -Context $context -Email 'name@company.net' -Confirm:$false } | Should -Throw 'Authenticated user must have role'
+                { Set-User -Context $context -Name 'Bob Johnson' -Confirm:$false } | Should -Throw 'Authenticated user must have role'
             }
 
             It 'Allows agents to call' {
                 $context.User.role = 'agent'
 
-                { Set-User -Context $context -Email 'name@company.net' -Confirm:$false } | Should -Not -Throw
+                { Set-User -Context $context -Name 'Bob Johnson' -Confirm:$false } | Should -Not -Throw
             }
 
             It 'Allows admins to call' {
                 $context.User.role = 'admin'
 
-                { Set-User -Context $context -Email 'name@company.net' -Confirm:$false } | Should -Not -Throw
+                { Set-User -Context $context -Name 'Bob Johnson' -Confirm:$false } | Should -Not -Throw
             }
 
         }
@@ -323,9 +323,9 @@ Describe 'Users Routes' {
         Context 'Create Or Update Many Users' {
 
             $users = @(
-                [PSCustomObject]@{ email = 'rob@company.net' }
-                [PSCustomObject]@{ email = 'ross@company.net' }
-                [PSCustomObject]@{ email = 'russel@company.net' }
+                [PSCustomObject]@{ name = 'Rob' }
+                [PSCustomObject]@{ name = 'Ross' }
+                [PSCustomObject]@{ name = 'Russel' }
             )
 
             It 'Matches the endpoint' {
