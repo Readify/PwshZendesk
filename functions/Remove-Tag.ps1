@@ -54,7 +54,7 @@ function Remove-Tag {
         }
     }
 
-    $body = {
+    $body = @{
         tags = $Tag
     }
 
