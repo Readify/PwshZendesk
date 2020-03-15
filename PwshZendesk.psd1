@@ -35,7 +35,7 @@
     Description = 'Wrapper for the Zendesk Rest API'
 
     # Minimum version of the PowerShell engine required by this module
-    PowerShellVersion = '5.0'
+    PowerShellVersion = '5.1'
 
     # Name of the PowerShell host required by this module
     # PowerShellHostName = ''
@@ -96,6 +96,8 @@
         'Get-OrganizationRelated',             'Get-ZendeskOrganizationRelated'
         'Get-Problem',                         'Get-ZendeskProblem'
         'Get-SearchCount',                     'Get-ZendeskSearchCount'
+        'Get-SharingAgreement',                'Get-ZendeskSharingAgreement'
+        'Get-SharingAgreement',                'Get-ZendeskSharingAgreement'
         'Get-SuspendedTicket',                 'Get-ZendeskSuspendedTicket'
         'Get-Tag',                             'Get-ZendeskTag'
         'Get-Ticket',                          'Get-ZendeskTicket'
@@ -118,6 +120,7 @@
         'New-GroupMembership',                 'New-ZendeskGroupMembership'
         'New-Organization',                    'New-ZendeskOrganization'
         'New-OrganizationMembership',          'New-ZendeskOrganizationMembership'
+        'New-SharingAgreement',                'New-ZendeskSharingAgreement'
         'New-Ticket',                          'New-ZendeskTicket'
         'New-UserIdentity',                    'New-ZendeskUserIdentity'
         'Remove-Attachment',                   'Remove-ZendeskAttachment'
@@ -125,6 +128,7 @@
         'Remove-GroupMembership',              'Remove-ZendeskGroupMembership'
         'Remove-Organization',                 'Remove-ZendeskOrganization'
         'Remove-OrganizationMembership',       'Remove-ZendeskOrganizationMembership'
+        'Remove-SharingAgreement',             'Remove-ZendeskSharingAgreement'
         'Remove-SuspendedTicket',              'Remove-ZendeskSuspendedTicket'
         'Remove-Tag',                          'Remove-ZendeskTag'
         'Remove-Ticket',                       'Remove-ZendeskTicket'
@@ -146,6 +150,7 @@
         'Test-Connection',                     'Test-ZendeskConnection'
         'Update-Group',                        'Update-ZendeskGroup'
         'Update-Organization',                 'Update-ZendeskOrganization'
+        'Update-SharingAgreement',             'Update-ZendeskSharingAgreement'
         'Update-Ticket',                       'Update-ZendeskTicket'
         'Update-User',                         'Update-ZendeskUser'
         'Update-UserIdentity',                 'Update-ZendeskUserIdentity'
