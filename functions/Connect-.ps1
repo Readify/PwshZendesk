@@ -26,11 +26,12 @@ function Connect- {
         [String]
         $Username,
 
-        # Zendesk API key retrieved from https://<organization>.zendesk.com/agent/admin/api/settings
+        # Zendesk API token retrieved from https://<organization>.zendesk.com/agent/admin/api/settings
         [Parameter(Mandatory = $true)]
+        [Alias('ApiKey')]
         [ValidateNotNullOrEmpty()]
         [SecureString]
-        $ApiKey
+        $ApiToken
     )
 
     $Script:Context = Get-Connection @PSBoundParameters

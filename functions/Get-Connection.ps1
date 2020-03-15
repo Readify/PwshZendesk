@@ -25,17 +25,18 @@ function Get-Connection {
         [String]
         $Username,
 
-        # Zendesk API key retrieved from https://<organization>.zendesk.com/agent/admin/api/settings
+        # Zendesk API token retrieved from https://<organization>.zendesk.com/agent/admin/api/settings
         [Parameter(Mandatory = $true)]
+        [Alias('ApiKey')]
         [ValidateNotNullOrEmpty()]
         [SecureString]
-        $ApiKey
+        $ApiToken
     )
 
     $context = [PSCustomObject]@{
         Organization = $Organization
         BaseUrl      = "https://$Organization.zendesk.com"
-        Credential   = [System.Management.Automation.PSCredential]::New("$Username/token", $ApiKey)
+        Credential   = [System.Management.Automation.PSCredential]::New("$Username/token", $ApiToken)
         User         = $null
     }
 
