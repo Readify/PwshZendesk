@@ -1,10 +1,26 @@
 ﻿
 function Remove-Tag {
+    <#
+    .SYNOPSIS
+        Removes tags from a ticket, organization, or user
+    .DESCRIPTION
+        Removes tags from a ticket, organization, or user
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTag -TicketId 1 -Tag 'a'
 
+        Removes tag 'a' from ticket with id 1
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTag -OrganizationId 1 -Tag 'a'
+
+        Removes tag 'a' from organization with id 1
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTag -UserId 1 -Tag 'a'
+
+        Removes tag 'a' from user with id 1
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the ticket to remove tags from
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Ticket')]

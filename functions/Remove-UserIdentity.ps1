@@ -6,11 +6,11 @@ function Remove-UserIdentity {
     .DESCRIPTION
         Delete the specified User Identity
     .EXAMPLE
-        PS C:\> Remove-UserIdentity -UserId `427427011998` -Id `211258542687`
+        PS C:\> Remove-ZendeskUserIdentity -UserId `427427011998` -Id `211258542687`
 
         Deletes the User Identity `211258542687` for the User with Id `427427011998`
     .EXAMPLE
-        PS C:\> Remove-UserIdentity -Context $context -UserId `427427011998` -Id `211258542687`
+        PS C:\> Remove-ZendeskUserIdentity -Context $context -UserId `427427011998` -Id `211258542687`
 
         Deletes the User Identity `211258542687` for the User with Id `427427011998` specifying the optional Context
     #>

@@ -1,10 +1,18 @@
 
 function Set-User {
+    <#
+    .SYNOPSIS
+        Creates or Update a user by email or external id.
+    .DESCRIPTION
+        Creates or Update a user by email or external id.
+    .EXAMPLE
+        PS C:\> Set-ZendeskUser -Email 'john@company.net' -Name 'John'
 
+        Creates a user john@company.net with name 'John' or updates the name of john@company.net to 'John'
+    #>
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High', DefaultParameterSetName = 'Default')]
     Param (
-
         # User Object to set
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Object')]

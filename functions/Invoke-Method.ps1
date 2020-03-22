@@ -1,10 +1,56 @@
 
 function Invoke-Method {
+    <#
+    .SYNOPSIS
+        Makes a call to a Zendesk Api Endpoint
+    .DESCRIPTION
+        Makes a call to a Zendesk Api Endpoint
+    .EXAMPLE
+        PS C:\> Invoke-Method -path '/api/v2/tickets.json'
 
+        Calls the List Tickets endpoint
+    .EXAMPLE
+        PS C:\> Invoke-Method -Method 'Post' -path '/api/v2/tickets.json' -Body $ticket
+
+        Calls the Create Ticket endpoint. `$ticket` is a hashtable or PSCustomObject that is automatically converted to json.
+    .EXAMPLE
+        PS C:\> Invoke-Method -path '/api/v2/tickets.json' -Pagination $false
+
+        Calls the List Tickets endpoint without pagination.
+    .EXAMPLE
+        PS C:\> Invoke-Method -path '/api/v2/tickets.json' -SortBy 'id'
+
+        Calls the List Tickets endpoint sorted by id.
+    .EXAMPLE
+        PS C:\> Invoke-Method -path '/api/v2/tickets.json' -SortBy $null
+
+        Calls the List Tickets endpoint without explicit sorting.
+    .EXAMPLE
+        PS C:\> Invoke-Method -path '/api/v2/tickets.json' -Retry $false
+
+        Calls the List Tickets endpoint without rety.
+    .EXAMPLE
+        PS C:\> Invoke-Method -path '/api/v2/tickets.json' -SideLoad 'user'
+
+        Calls the List Tickets endpoint with user sideloading.
+    .NOTES
+        Method defaults to 'Get'
+
+        Paths begin with '/api' as listed in the Zendesk API doco.
+
+        ContentType defaults to 'application/json'
+
+        If the ContentType is not overriden then the Body is automatically converted to Json.
+
+        Pagination is done by default
+
+        Sortby defaults to 'created_at'. Set to $null to follows the endpoints default sorting.
+
+        Exponential retries api limited calls by default.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding()]
     Param (
-
         # Rest Method
         [Parameter(Mandatory = $false)]
         [ValidateSet('Delete', 'Get', 'Post', 'Put')]
@@ -84,7 +130,6 @@ function Invoke-Method {
         [PSTypeName('ZendeskContext')]
         [PSCustomObject]
         $Context = $null
-
     )
 
     # Determine the context

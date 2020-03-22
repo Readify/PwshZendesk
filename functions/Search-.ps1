@@ -2,11 +2,17 @@
 function Search- {
     <#
     .Synopsis
-    Searches Zendesk.
+        Searches Zendesk.
     .DESCRIPTION
-    Searches Zendesk using the universal search api.
+        Searches Zendesk using the universal search api. See: https://developer.zendesk.com/rest_api/docs/support/search#query-basics
     .EXAMPLE
-    Search-Zendesk -Query 'type:user user@company.com'
+        PS C:\> Search-Zendesk -Query 'type:ticket status:open'
+
+        Searched for open tickets
+    .EXAMPLE
+        PS C:\> Search-Zendesk -Query 'status<solved requester:user@domain.com type:ticket'
+
+        Searched for unsolved tickets requested by user@domain.com
     #>
     [OutputType([PSCustomObject])]
     [CmdletBinding()]

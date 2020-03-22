@@ -1,10 +1,34 @@
 
 function Remove-Ticket {
+    <#
+    .SYNOPSIS
+        Deletes specified ticket or tickets.
+    .DESCRIPTION
+        Deletes specified ticket or tickets.
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTicket -Id 1
 
+        Delete ticket with id 1.
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTicket -Id 1, 2, 3
+
+        Delete tickets with ids 1, 2, and 3.
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTicket -Id 1 -Permanent
+
+        Permanently deletes deleted ticket with id 1.
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTicket -Id 1, 2, 3 -Permanent
+
+        Permanently deletes deleted tickets with ids 1, 2, and 3.
+    .EXAMPLE
+        PS C:\> Remove-ZendeskTicket -Context $context -Id 1
+
+        Delete ticket with id 1 with connection context from `Get-ZendeskConnection`.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the ticket to delete
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

@@ -1,10 +1,46 @@
 
 function Get-GroupMembership {
+    <#
+    .SYNOPSIS
+        Gets Group Memberships
+    .DESCRIPTION
+        Gets Group Memberships
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership
 
+        Gets all group memberships.
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -Id 1
+
+        Gets group membership with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -Id 1 -UserId 2
+
+        Gets group membership with id 1 for user with id 2
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -UserId 2
+
+        Gets group memberships for user with id 2
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -GroupId 3
+
+        Gets group memberships for group with id 3
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -Assignable
+
+        Gets assignable group memberships
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -GroupId 3 -Assignable
+
+        Gets assignable group memberships for group with id 3
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroupMembership -Id 1 -SideLoad 'users', 'groups'
+
+        Gets group membership with id 1 as well as the user and group for that membership
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (
-
         # Unique Id of the group membership to retrieve
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Id')]

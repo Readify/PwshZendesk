@@ -1,10 +1,18 @@
 ﻿
 function Remove-Group {
+    <#
+    .SYNOPSIS
+        Deletes a Group
+    .DESCRIPTION
+        Deletes a Group
+    .EXAMPLE
+        PS C:\> Remove-ZendeskGroup -Id 1
 
+        Deletes the group with id `1`
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of group to delete
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

@@ -1,10 +1,18 @@
 ﻿
 function Invoke-CommentRedaction {
+    <#
+    .SYNOPSIS
+        Permanently removes words or strings from a ticket comment.
+    .DESCRIPTION
+        Permanently removes words or strings from a ticket comment.
+    .EXAMPLE
+        PS C:\> Invoke-ZendeskCommentRedaction -TicketId 1 -Id 2 -Text 'p@ssword'
 
+        Redacts the text string `p@ssword` in the comment with id 2 that is associated with ticket with id 1
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the ticket the comment belongs to
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

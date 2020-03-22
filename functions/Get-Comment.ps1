@@ -1,10 +1,22 @@
 ﻿
 function Get-Comment {
+    <#
+    .SYNOPSIS
+        Gets comments for a given ticket.
+    .DESCRIPTION
+        Gets comments for a given ticket.
+    .EXAMPLE
+        PS C:\> Get-ZendeskComment -TicketId 1
 
+        Gets comments on ticket with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskComment -Context $context -TicketId 1
+
+        Gets comments on ticket with id 1 with a connection context from `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding()]
     Param (
-
         # Unique Id of the ticket to get comments for
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

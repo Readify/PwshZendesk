@@ -6,7 +6,7 @@ function Set-UserIdentityAsVerified {
     .DESCRIPTION
         Sets the specified identity as verified.
     .EXAMPLE
-        PS C:\> Set-UserIdentityAsVerified -UserId `427427011998` -Id `211258542687`
+        PS C:\> Set-ZendeskUserIdentityAsVerified -UserId `427427011998` -Id `211258542687`
 
         Sets the User Identity `211258542687` for the User with Id `427427011998` as verified
     #>

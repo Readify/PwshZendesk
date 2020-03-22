@@ -1,10 +1,26 @@
 
 function Get-SuspendedTicket {
+    <#
+    .SYNOPSIS
+        Retrieves one or more suspended tickets
+    .DESCRIPTION
+        Retrieves one or more suspended tickets
+    .EXAMPLE
+        PS C:\> Get-ZendeskSuspendedTicket
 
+        Gets all suspended tickets.
+    .EXAMPLE
+        PS C:\> Get-ZendeskSuspendedTicket -Id 1
+
+        Gets suspended ticket with id 1.
+    .EXAMPLE
+        PS C:\> Get-ZendeskSuspendedTicket -Context $context
+
+        Gets all suspended tickets with connection context from `Get-ZendeskConnection`.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding()]
     Param (
-
         # Unique Id of the suspended ticket to retrieve
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [Int64]::MaxValue)]

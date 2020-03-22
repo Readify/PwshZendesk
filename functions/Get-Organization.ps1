@@ -1,4 +1,42 @@
 function Get-Organization {
+    <#
+    .SYNOPSIS
+        Gets organizations
+    .DESCRIPTION
+        Gets all organizations or by id, external id, user id, or partial name
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization
+
+        Gets all organizations.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -Id 1
+
+        Gets organization with id 1.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -Id 1, 2, 3
+
+        Gets organizations with ids 1, 2, and 3.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -ExternalId 1
+
+        Gets organization with external id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -ExternalId 1, 2, 3
+
+        Gets organizations with external ids 1, 2, and 3.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -UserId 1
+
+        Gets organizations that user with id 1 is a member of.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -PartialName 'Del'
+
+        Gets organizations with names that start with 'Del'.
+    .EXAMPLE
+        PS C:\> Get-ZendeskOrganization -Context $context
+
+        Gets all organizations with connection context from `Get-ZendeskConnection`.
+    #>
     [CmdletBinding(DefaultParameterSetName = 'default')]
     Param (
         # Unique Id of the group to retrieve

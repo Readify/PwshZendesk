@@ -1,10 +1,26 @@
 
 function Remove-OrganizationMembership {
+    <#
+    .SYNOPSIS
+        Removes a user from an organization
+    .DESCRIPTION
+        Removes a user from an organization
+    .EXAMPLE
+        PS C:\> Remove-ZendeskOrganizationMembership -Id 1
 
+        Deletes the organization membership with id 1
+    .EXAMPLE
+        PS C:\> Remove-ZendeskOrganizationMembership -Id 1 -UserId 2
+
+        Deletes the organization membership with id 1 explicitly for user with id 2
+    .EXAMPLE
+        PS C:\> Remove-ZendeskOrganizationMembership -Id 1, 2, 3
+
+        Deletes the organization memberships with ids 1, 2, and 3
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the organization membership to remove
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]
@@ -16,7 +32,7 @@ function Remove-OrganizationMembership {
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [Int64]::MaxValue)]
         [ValidateNotNullOrEmpty()]
-        [Int64[]]
+        [Int64]
         $UserId,
 
         # Zendesk Connection Context from `Get-ZendeskConnection`

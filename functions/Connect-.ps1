@@ -13,7 +13,6 @@ function Connect- {
     [OutputType([Boolean])]
     [CmdletBinding()]
     Param (
-
         # Zendesk subdomain
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]

@@ -1,6 +1,19 @@
 
 function Get-SearchCount {
+    <#
+    .SYNOPSIS
+        Retrieves the number of results a search would return.
+    .DESCRIPTION
+        Retrieves the number of results a search would return.
+    .EXAMPLE
+        PS C:\> Get-ZendeskSearchCount -Query 'type:ticket status:open'
 
+        Gets the number of open tickets.
+    .EXAMPLE
+        PS C:\> Get-ZendeskSearchCount -Query 'status<solved requester:user@domain.com type:ticket'
+
+        Gets the number of unsolved tickets raised by user@domain.com
+    #>
     [OutputType([String])]
     [CmdletBinding()]
     Param (

@@ -1,6 +1,19 @@
 
 function Remove-SuspendedTicket {
+    <#
+    .SYNOPSIS
+        Deletes one or more suspended tickets
+    .DESCRIPTION
+        Deletes one or more suspended tickets
+    .EXAMPLE
+        PS C:\> Remove-ZendeskSuspendedTicket -Id 1
 
+        Deletes the suspended ticket with id 1
+    .EXAMPLE
+        PS C:\> Remove-ZendeskSuspendedTicket -Id 1, 2, 3
+
+        Deletes the suspended tickets with ids 1, 2, and 3
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (

@@ -1,10 +1,18 @@
 ﻿
 function Hide-Comment {
+    <#
+    .SYNOPSIS
+        Makes a comment private.
+    .DESCRIPTION
+        Makes a comment private.
+    .EXAMPLE
+        PS C:\> Hide-ZendeskComment -TicketId 1 -Id 2
 
+        Makes the comment with id 2 on ticket with id 1 private.
+    #>
     [OutputType([String])]
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of the comment to hide
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]

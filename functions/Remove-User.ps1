@@ -1,10 +1,30 @@
 
 function Remove-User {
+    <#
+    .SYNOPSIS
+        Deletes a user.
+    .DESCRIPTION
+        Deletes a user by Id or External Id.
+    .EXAMPLE
+        PS C:\> Remove-ZendeskUser -Id 1
 
+        Soft deletes a user with id 1
+    .EXAMPLE
+        PS C:\> Remove-ZendeskUser -Id 1, 2, 3
+
+        Soft deletes users with ids 1, 2, and 3
+    .EXAMPLE
+        PS C:\> Remove-ZendeskUser -ExternalId 1
+
+        Soft deletes a user with external id 1
+    .EXAMPLE
+        PS C:\> Remove-ZendeskUser -Id 1 -Permanent
+
+        Permanently deletes an already soft deleted user with id 1
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High', DefaultParameterSetName = 'Id')]
     Param (
-
         # Unique Id of the user to delete
         [Parameter(Mandatory = $true, ParameterSetName = 'Id')]
         [ValidateRange(1, [Int64]::MaxValue)]

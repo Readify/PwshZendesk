@@ -1,10 +1,26 @@
 
 function Get-DeletedUser {
+    <#
+    .SYNOPSIS
+        Returns deleted users, including permanently deleted users
+    .DESCRIPTION
+        Returns deleted users, including permanently deleted users
+    .EXAMPLE
+        PS C:\> Get-ZendeskDeletedUser
 
+        Returns deleted users.
+    .EXAMPLE
+        PS C:\> Get-ZendeskDeletedUser -UserId
+
+        Returns a specific deleted user by id.
+    .EXAMPLE
+        PS C:\> Get-ZendeskDeletedUser -Context $context
+
+        Returns deleted users using a connection context from `Get-ZendeskConnection`.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding()]
     Param (
-
         # Unique Id of the User to retrieve
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [Int64]::MaxValue)]

@@ -1,10 +1,40 @@
 ﻿
 function Get-Group {
+    <#
+    .SYNOPSIS
+        Retrieves a group or groups
+    .DESCRIPTION
+        Retrieves all groups, assignable groups, groups by User, or a specific group.
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroup
 
+        Retrieves all groups
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroup -Id 1
+
+        Retrieves group with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroup -UserId 1
+
+        Retrieves groups assigned to User with id 1
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroup -Assignable
+
+        Retrieves assignable groups
+    .EXAMPLE
+        PS C:\> $result = Get-ZendeskGroup -Id 1 -SideLoad users
+        PS C:\> $group = $result.group
+        PS C:\> $members = $result.users
+
+        Retrieves group with id 1 with users assigned to that group side loaded.
+    .EXAMPLE
+        PS C:\> Get-ZendeskGroup -Context $context
+
+        Retrieves all groups supplying a connection context returned by `Get-ZendeskConnection`
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (
-
         # Unique Id of the group to retrieve
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Id')]

@@ -6,15 +6,15 @@ function Update-UserIdentity {
     .DESCRIPTION
         Updates an identity on a user's profile.
     .EXAMPLE
-        PS C:\> Update-UserIdentity -UserId 427427011998 -Id 899110724724 -Value 'username@company.com'
+        PS C:\> Update-ZendeskUserIdentity -UserId 427427011998 -Id 899110724724 -Value 'username@company.com'
 
         Updates the email address `username@company.com` for the user identity `899110724724` on user `427427011998`
     .EXAMPLE
-        PS C:\> Update-UserIdentity -UserId 427427011998 -Id 899110724724 -Verified
+        PS C:\> Update-ZendeskUserIdentity -UserId 427427011998 -Id 899110724724 -Verified
 
         Marks the user identity `899110724724` on user `427427011998` as verified
     .EXAMPLE
-        PS C:\> Update-UserIdentity -Context $context -UserId 427427011998 -Id 899110724724 -Value 'username@company.com'
+        PS C:\> Update-ZendeskUserIdentity -Context $context -UserId 427427011998 -Id 899110724724 -Value 'username@company.com'
 
         Updates the email address `username@company.com` for the user identity `899110724724` on user `427427011998` using a Zendesk Context returned from `Get-ZendeskConnection`
     #>

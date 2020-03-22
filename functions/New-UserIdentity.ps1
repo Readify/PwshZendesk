@@ -6,39 +6,39 @@ function New-UserIdentity {
     .DESCRIPTION
         Adds a new identity to a user's profile.
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'email' -Value 'username@company.com'
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'email' -Value 'username@company.com'
 
         Adds the email address `username@company.com` to the user `427427011998`
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'twitter' -Value 'username'
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'twitter' -Value 'username'
 
         Adds the twitter account `username` to the user `427427011998`
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'facebook' -Value '855769377321'
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'facebook' -Value '855769377321'
 
         Adds the facebook account `855769377321` to the user `427427011998`
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'google' -Value 'username@gmail.com'
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'google' -Value 'username@gmail.com'
 
         Adds the google account `username@gmail.com` to the user `427427011998`
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'phone_number' -Value '+1 555-123-4567'
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'phone_number' -Value '+1 555-123-4567'
 
         Adds the phone_number `+1 555-123-4567` to the user `427427011998`
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'agent_fowarding' -Value '+1 555-123-4567'
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'agent_fowarding' -Value '+1 555-123-4567'
 
         Adds the agent_fowarding number `+1 555-123-4567` to the user `427427011998`
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'email' -Value 'username@company.com' -Verified
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'email' -Value 'username@company.com' -Verified
 
         Adds the email address `username@company.com` to the user `427427011998` and marks it as verified
     .EXAMPLE
-        PS C:\> New-UserIdentity -UserId '427427011998 -Type 'email' -Value 'username@company.com' -Primary
+        PS C:\> New-ZendeskUserIdentity -UserId '427427011998 -Type 'email' -Value 'username@company.com' -Primary
 
         Adds the email address `username@company.com` to the user `427427011998` as their primary identity
     .EXAMPLE
-        PS C:\> New-UserIdentity -Context $context -UserId '427427011998 -Type 'email' -Value 'username@company.com'
+        PS C:\> New-ZendeskUserIdentity -Context $context -UserId '427427011998 -Type 'email' -Value 'username@company.com'
 
         Adds the email address `username@company.com` to the user `427427011998` using a Zendesk Context returned from `Get-ZendeskConnection`
     #>

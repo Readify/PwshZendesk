@@ -1,10 +1,34 @@
 
 function New-OrganizationMembership {
+    <#
+    .SYNOPSIS
+        Assigns a user to a given organization.
+    .DESCRIPTION
+        Assigns a user to a given organization.
+    .EXAMPLE
+        PS C:\> New-ZendeskOrganizationMembership -UserId 1 -OrganizationId 2
 
+        Assigns the user with id 1 to a the organization with id 2.
+    .EXAMPLE
+        PS C:\> New-ZendeskOrganizationMembership -UserId 1 -OrganizationId 2 -Default
+
+        Assigns the user with id 1 to a the organization with id 2 and makes it the default membership.
+    .EXAMPLE
+        PS C:\> New-ZendeskOrganizationMembership -Membership @{ UserId = 1; OrganizationId = 2 }
+
+        Assigns the user with id 1 to a the organization with id 2.
+    .EXAMPLE
+        PS C:\> New-ZendeskOrganizationMembership -Membership @( @{ UserId = 1; OrganizationId = 2 }, @{ UserId = 1; OrganizationId = 3 } )
+
+        Assigns the user with id 1 to a the organizations with ids 2 and 3.
+    .EXAMPLE
+        PS C:\> New-ZendeskOrganizationMembership -Membership @{ UserId = 1; OrganizationId = 2; Default = $true }
+
+        Assigns the user with id 1 to a the organization with id 2.
+    #>
     [OutputType([PSCustomObject])]
     [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # The ID of the user for whom this memberships belongs
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Properties')]
@@ -28,7 +52,7 @@ function New-OrganizationMembership {
         # Full Membership objects
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Object')]
-        [PSCustomObject]
+        [PSCustomObject[]]
         $Membership,
 
         # Zendesk Connection Context from `Get-ZendeskConnection`

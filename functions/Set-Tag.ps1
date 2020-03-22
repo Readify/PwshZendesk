@@ -1,10 +1,26 @@
 ﻿
 function Set-Tag {
+    <#
+    .SYNOPSIS
+        Sets the tags for a ticket, organization, or user.
+    .DESCRIPTION
+        Sets the tags for a ticket, organization, or user. Any tags that are omitted are removed.
+    .EXAMPLE
+        PS C:\> Set-ZendeskTag -TicketId 1 -Tag 'a', 'b', 'c'
 
+        Sets the tags for ticket with id 1. Any existing tags not specified are removed.
+    .EXAMPLE
+        PS C:\> Set-ZendeskTag -OrganizationId 1 -Tag 'a', 'b', 'c'
+
+        Sets the tags for organization with id 1. Any existing tags not specified are removed.
+    .EXAMPLE
+        PS C:\> Set-ZendeskTag -UserId 1 -Tag 'a', 'b', 'c'
+
+        Sets the tags for user with id 1. Any existing tags not specified are removed.
+    #>
     [OutputType([PSCustomObject])]
     [CmdletBinding(DefaultParameterSetName = 'Default', SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-
         # Unique Id of ticket to set tags for
         [Parameter(Mandatory = $true,
             ParameterSetName = 'Ticket')]
