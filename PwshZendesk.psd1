@@ -11,7 +11,7 @@
     RootModule = '.\PwshZendesk.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.5.19'
+    ModuleVersion = '0.5.20'
 
     # Supported PSEditions
     CompatiblePSEditions = @(
