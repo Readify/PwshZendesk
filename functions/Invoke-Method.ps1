@@ -142,9 +142,10 @@ function Invoke-Method {
     }
 
     $params = @{
-        Method  = $Method
-        Headers = @{
-            Accept = 'application/json'
+        Method      = $Method
+        ContentType = 'application/json; charset=utf-8'
+        Headers     = @{
+            Accept = 'application/json; charset=utf-8'
         }
     }
 
