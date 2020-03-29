@@ -97,7 +97,6 @@
         'Get-Problem',                         'Get-ZendeskProblem'
         'Get-SearchCount',                     'Get-ZendeskSearchCount'
         'Get-SharingAgreement',                'Get-ZendeskSharingAgreement'
-        'Get-SharingAgreement',                'Get-ZendeskSharingAgreement'
         'Get-SuspendedTicket',                 'Get-ZendeskSuspendedTicket'
         'Get-Tag',                             'Get-ZendeskTag'
         'Get-Ticket',                          'Get-ZendeskTicket'

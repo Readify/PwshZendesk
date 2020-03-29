@@ -17,7 +17,7 @@ function Get-SharingAgreement {
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (
 
-        # Unique Id of the group to retrieve
+        # Unique Id of the sharing agreement to retrieve
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [Int64]::MaxValue)]
         [Int64]

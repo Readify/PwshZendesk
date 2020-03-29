@@ -4,14 +4,14 @@ function New-SharingAgreement {
     .SYNOPSIS
         Creates a sharing agreement.
     .DESCRIPTION
-        Creatas a sharing agreement. Requires sharing to be enabled on the Zendesk instance. For more information see: https://support.zendesk.com/hc/en-us/articles/203661466-Sharing-tickets-with-other-Zendesk-Support-accounts
+        Creates a sharing agreement. Requires sharing to be enabled on the Zendesk instance. For more information see: https://support.zendesk.com/hc/en-us/articles/203661466-Sharing-tickets-with-other-Zendesk-Support-accounts
     .EXAMPLE
         PS C:\> New-ZendeskSharingAgreement -RemoteSubdomain 'Foo'
 
         Creates a new sharing agreement with the Foo Zendesk Support instance.
     #>
     [OutputType([PSCustomObject])]
-    [CMDletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
         # Name of this sharing agreement
         [Parameter(Mandatory = $false)]

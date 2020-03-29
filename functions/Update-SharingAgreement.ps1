@@ -15,14 +15,14 @@ function Update-SharingAgreement {
     #>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     Param (
-        # Unique Id of the group to retrieve
-        [Parameter(Mandatory = $false)]
+        # Unique Id of the sharing agreement to update
+        [Parameter(Mandatory = $true)]
         [ValidateRange(1, [Int64]::MaxValue)]
         [Int64]
         $Id,
 
-        # Unique Id of the group to retrieve
-        [Parameter(Mandatory = $false)]
+        # The status of the agreement
+        [Parameter(Mandatory = $true)]
         [ValidateSet('accepted', 'declined', 'pending', 'inactive')]
         [String]
         $Status,
@@ -43,7 +43,7 @@ function Update-SharingAgreement {
         }
     }
 
-    if ($PSCmdlet.ShouldProcess($Id, 'Update Group Name.')) {
+    if ($PSCmdlet.ShouldProcess($Id, 'Update Sharing Agreement.')) {
         $result = Invoke-Method -Context $Context -Method 'Put' -Path $path -Body $body -Verbose:$VerbosePreference
         $result
     }

@@ -3,7 +3,7 @@ Param()
 
 Import-Module "$PSScriptRoot/../PwshZendesk.psm1" -Force
 
-Describe 'Groups Routes' {
+Describe 'Sharing Agreement Routes' {
 
     InModuleScope PwshZendesk {
 
