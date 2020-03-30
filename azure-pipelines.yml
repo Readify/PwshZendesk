@@ -77,8 +77,8 @@ stages:
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Mac.xml" -OutputFormat NUnitXML
       displayName: Pester
-      continueOnError: true
     - task: PublishTestResults@2
+      condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: 'Test-Pester-Mac.xml'
@@ -106,8 +106,8 @@ stages:
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Ubuntu.xml" -OutputFormat NUnitXML
       displayName: Pester
-      continueOnError: true
     - task: PublishTestResults@2
+      condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: 'Test-Pester-Ubuntu.xml'
@@ -135,8 +135,8 @@ stages:
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Win2019.xml" -OutputFormat NUnitXML
       displayName: Pester
-      continueOnError: true
     - task: PublishTestResults@2
+      condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: 'Test-Pester-Win2019.xml'
@@ -164,8 +164,8 @@ stages:
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Win2016.xml" -OutputFormat NUnitXML
       displayName: Pester
-      continueOnError: true
     - task: PublishTestResults@2
+      condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: 'Test-Pester-Win2016.xml'
