@@ -3,7 +3,7 @@
 ![Build Status]
 
 PwshZendesk is a Zendesk Support API client for Powershell.
-PwshZendesk supports Powershell versions 5.0, 5.1, 6, and 7 on all platforms.
+PwshZendesk supports Powershell versions 5.1, 6, and 7 on all platforms.
 
 
 ## Getting Started
@@ -22,7 +22,7 @@ Head to Admin => Channels => API and click the `+` under "Token Access"
 
 ### Installing
 
-PwshZendesk supports Powershell versions 5.0, 5.1, 6, and 7 on all platforms.
+PwshZendesk supports Powershell versions 5.1, 6, and 7 on all platforms.
 
 It is recommended to install PwshZendesk from the [PowerShell Gallery]:
 
