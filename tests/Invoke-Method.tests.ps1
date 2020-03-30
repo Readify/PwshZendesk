@@ -1,4 +1,4 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
+﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
 Param()
 
 Import-Module "$PSScriptRoot/../PwshZendesk.psm1" -Force
@@ -77,11 +77,12 @@ Describe 'Invoke-Method' -Tags 'internet' {
 
         It 'Throws with no invalid connection type' {
             $block = {
-                Invoke-Method -Path '/' -Context [PSCustomObject]@{
+                $context = [PSCustomObject]@{
                     Organization = 'company'
-                    BaseUrl = 'https://company.testdesk.com'
-                    Credential = $null
+                    BaseUrl      = 'https://company.testdesk.com'
+                    Credential   = $null
                 }
+                Invoke-Method -Path '/' -Context $context
             }
             $block | Should -Throw
         }
@@ -96,6 +97,11 @@ Describe 'Invoke-Method' -Tags 'internet' {
             Invoke-Method -Context $context -Method 'Post' -Path '/' -Body 'The Body' -ContentType 'text/plain'
             Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Body -eq 'The Body' } -Scope It
             Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $ContentType -eq 'text/plain' } -Scope It
+        }
+
+        It 'Escapes non-ascii characters' {
+            Invoke-Method -Context $context -Method 'Post' -Path '/' -Body ([PSCustomObject]@{ user = @{ name = '(╯°□°）╯︵ ┻━┻' } })
+            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $Body -eq '{"user":{"name":"(\u256f\u00b0\u25a1\u00b0\uff09\u256f\ufe35 \u253b\u2501\u253b"}}' } -Scope It
         }
 
         It 'Sorts by created_at by default' {
