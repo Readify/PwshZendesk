@@ -67,7 +67,7 @@ function New-OrganizationMembership {
     if ($PSCmdlet.ParameterSetName -eq 'Properties')  {
         $path = '/api/v2/organization_memberships.json'
         $body = @{
-            group_membership = @{
+            organization_membership = @{
                 user_id         = $UserId
                 organization_id = $OrganizationId
                 default         = $Default
@@ -76,7 +76,7 @@ function New-OrganizationMembership {
     } else {
         $path = '/api/v2/organization_memberships/create_many.json'
         $body = @{
-            group_memberships = @($Membership)
+            organization_memberships = @($Membership)
         }
     }
 

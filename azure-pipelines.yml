@@ -13,10 +13,10 @@ stages:
     steps:
     - checkout: self
       clean: true
-    - script: brew install gitversion
+    - script: dotnet tool install --global GitVersion.Tool --version 5.3.3
       displayName: Install Gitversion
     - pwsh: |
-        $version = gitversion | ConvertFrom-Json | ForEach-Object MajorMinorPatch
+        $version = dotnet-gitversion | ConvertFrom-Json | ForEach-Object MajorMinorPatch
         Write-Host "##vso[build.updatebuildnumber]$version"
       displayName: Set Build Number
     - pwsh: |
