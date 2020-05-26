@@ -23,8 +23,8 @@ function Get-JobStatus {
     Param (
         # Unique Id of the background job whose status to retrieve
         [Parameter(Mandatory = $false)]
-        [ValidateRange(1, [Int64]::MaxValue)]
-        [Int64[]]
+        [ValidateNotNullOrEmpty()]
+        [String[]]
         $Id,
 
         # Zendesk Connection Context from `Get-ZendeskConnection`
