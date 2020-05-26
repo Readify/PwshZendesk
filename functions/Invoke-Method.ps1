@@ -165,9 +165,9 @@ function Invoke-Method {
     if ($PSBoundParameters.ContainsKey('Body')) {
         if ($ContentType -eq 'application/json') {
             if ($PSVersionTable.PSVersion -ge '6.2.0') {
-                $params.Body = $Body | ConvertTo-Json -Compress -EscapeHandling EscapeNonAscii
+                $params.Body = $Body | ConvertTo-Json -Depth 5 -Compress -EscapeHandling EscapeNonAscii
             } else {
-                $params.Body = $Body | ConvertTo-Json -Compress | ConvertTo-UnicodeEscape
+                $params.Body = $Body | ConvertTo-Json -Depth 5 -Compress | ConvertTo-UnicodeEscape
             }
         } else {
             $params.Body = $Body
