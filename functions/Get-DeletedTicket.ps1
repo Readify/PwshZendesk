@@ -26,7 +26,7 @@ function Get-DeletedTicket {
 
     $path = '/api/v2/deleted_tickets.json'
 
-    $result = Invoke-Method -Context $Context -Path $path -Verbose:$VerbosePreference
+    $result = Invoke-Method -Context $Context -Path $path -SortBy 'deleted_at' -Verbose:$VerbosePreference
     $result | Select-Object -Expand 'deleted_tickets'
 
 }
