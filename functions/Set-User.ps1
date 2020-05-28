@@ -28,7 +28,7 @@ function Set-User {
         $Email,
 
         # The user's name.
-        [Parameter(Mandatory = $true,
+        [Parameter(Mandatory = $false,
             ParameterSetName = 'Properties')]
         [ValidateNotNullOrEmpty()]
         [String]
@@ -195,12 +195,11 @@ function Set-User {
 
         $path = '/api/v2/users/create_or_update.json'
         $body = @{
-            user = @{
-                name = $Name
-            }
+            user = @{}
         }
 
         $map = @{
+            name                  = 'Name'
             email                 = 'Email'
             alias                 = 'Alias'
             custom_role_id        = 'CustomRoleId'
