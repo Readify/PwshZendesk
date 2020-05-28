@@ -72,7 +72,7 @@ stages:
         Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - pwsh: |
-        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Save-Module -Name Pester -Path '.' -MaximumVersion 4.999.999 -Repository PSGallery -Confirm:$false
         Import-Module -Name './Pester/'
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Mac.xml" -OutputFormat NUnitXML
@@ -101,7 +101,7 @@ stages:
         Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - pwsh: |
-        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Save-Module -Name Pester -Path '.' -MaximumVersion 4.999.999 -Repository PSGallery -Confirm:$false
         Import-Module -Name './Pester/'
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Ubuntu.xml" -OutputFormat NUnitXML
@@ -130,7 +130,7 @@ stages:
         Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - pwsh: |
-        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Save-Module -Name Pester -Path '.' -MaximumVersion 4.999.999 -Repository PSGallery -Confirm:$false
         Import-Module -Name './Pester/'
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Win2019.xml" -OutputFormat NUnitXML
@@ -159,7 +159,7 @@ stages:
         Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory | Invoke-ScriptAnalyzer -EnableExit | Format-Table -AutoSize
       displayName: Script Analyzer
     - powershell: |
-        Save-Module -Name Pester -Path '.' -Repository PSGallery -Confirm:$false
+        Save-Module -Name Pester -Path '.' -MaximumVersion 4.999.999 -Repository PSGallery -Confirm:$false
         Resolve-Path -Path './Pester/*/Pester.psd1' | Import-Module
         Set-Location -Path '$(Pipeline.Workspace)'
         Invoke-Pester -EnableExit -OutputFile "$(System.DefaultWorkingDirectory)/Test-Pester-Win2016.xml" -OutputFormat NUnitXML
