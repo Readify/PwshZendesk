@@ -148,6 +148,7 @@
         'Set-User',                            'Set-ZendeskUser'
         'Set-UserIdentityAsPrimary',           'Set-ZendeskUserIdentityAsPrimary'
         'Set-UserIdentityAsVerified',          'Set-ZendeskUserIdentityAsVerified'
+        'Set-UserPassword',                    'Set-ZendeskUserPassword'
         'Test-Connection',                     'Test-ZendeskConnection'
         'Update-Group',                        'Update-ZendeskGroup'
         'Update-Organization',                 'Update-ZendeskOrganization'
