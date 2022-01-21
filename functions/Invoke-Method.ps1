@@ -155,11 +155,11 @@ function Invoke-Method {
         $params.Authentication = 'Basic'
     } else {
         # PS Desktop requires manual header creation. Basic auth is only supported by challenge.
-        $raw = '{0}/token:{1}' -f $Context.Credential.username, $Context.Credential.GetNetworkCredential().password
-        $bytes = [System.Text.Encoding]::Unicode.GetBytes($raw)
+        $raw = '{0}:{1}' -f $Context.Credential.GetNetworkCredential().username, $Context.Credential.GetNetworkCredential().password
+        $bytes = [System.Text.Encoding]::ASCII.GetBytes($raw)
         $encoded = [Convert]::ToBase64String($bytes)
 
-        $params.Headers.Authentication = "basic: $encoded"
+        $params.Headers.Authorization = "Basic $encoded"
     }
 
     if ($PSBoundParameters.ContainsKey('Body')) {
